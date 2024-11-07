@@ -1,13 +1,12 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# npm run lint
+npm run lint
 
 # 执行 npm 脚本检查代码规范
-npm run eslint
+# npm run eslint
 
 # 判断 lint 是否通过
-if [ $? -ne 0 ]; then
-  echo "代码不符合规范请重试"
-  exit 1 # 阻止此次提交
-fi
+# if [ $? -ne 0 ]; then
+#   exit 1 # 阻止此次提交
+# fi
