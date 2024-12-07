@@ -1,25 +1,37 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    // 目标代码（ts -> es6/7/8 js）
+    "target": "esnext", // esnext：es6之后的语法。过程： ts -> tsconfig(es6 js) -> babel -> es5 js
+    // 目标代码需要使用的模块化方案（commonjs/esmodule）
+    "module": "esnext", // ”umd”：混合模式
+    // 严格模式
     "strict": true,
+    // 对 jsx 的处理方式
     "jsx": "preserve",
+    // 按照 node 的方式解析模块
     "moduleResolution": "node",
+    // 跳过对某些库的类型检测
     "skipLibCheck": true,
+    //export default（es module）/module.exports = {}（commonjs） 是否能混合使用
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "useDefineForClassFields": true,
+    // 是否生成映射文件
     "sourceMap": true,
+    // 文件路径在解析时，基本的url
     "baseUrl": ".",
+    // 指定具体要解析使用的类型
     "types": [
       "webpack-env"
     ],
+    // 编译阶段的路径解析（类似于webpack alias）
     "paths": {
       "@/*": [
         "src/*"
       ]
     },
+    // 指定项目中可以使用哪些库的类型
     "lib": [
       "esnext",
       "dom",
