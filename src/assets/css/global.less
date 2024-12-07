@@ -1,0 +1,47 @@
+.form-item {
+  margin-bottom: 16px; // 表单项之间的垂直间距
+
+  label {
+    display: inline-block;
+    width: 120px; // 标签固定宽度
+    text-align: right; // 标签右对齐
+    margin-right: 8px;
+    font-weight: bold;
+    color: #333; // 标签字体颜色
+  }
+
+  .el-input,
+  .el-select,
+  .el-date-picker {
+    width: 300px; // 输入框宽度
+    border-radius: 6px; // 圆角样式
+    font-size: 14px; // 字体大小
+    color: #333;
+
+    &::placeholder {
+      color: #bbb; // 占位符颜色
+    }
+
+    &:hover {
+      border-color: #409eff; // 悬停时边框颜色（系统主色）
+    }
+
+    &:focus {
+      border-color: #409eff; // 聚焦时边框颜色
+      box-shadow: 0 0 5px rgba(64, 158, 255, 0.5); // 聚焦时阴影
+    }
+  }
+
+  .el-input[disabled],
+  .el-select[disabled],
+  .el-date-picker[disabled] {
+    background-color: #f5f7fa; // 禁用状态背景色
+    color: #c0c4cc; // 禁用状态字体色
+  }
+
+  .error-message {
+    color: #f56c6c; // 错误提示颜色
+    font-size: 12px; // 错误提示字体大小
+    margin-top: 4px;
+  }
+}

@@ -6,7 +6,7 @@ export interface IAccount {
 export interface ILoginResult {
   id: string;
   username: string;
-  phone: number;
+  phone: string;
   token: string;
 }
 
@@ -18,7 +18,7 @@ export interface IUserInfoResult {
   wid: string;
   roleId: string;
   departmentId: string;
-  phone: number;
+  phone: string;
   createTime: string;
   updateTime: string;
   avatarUrl: string;

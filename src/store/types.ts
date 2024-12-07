@@ -11,7 +11,7 @@ export interface ILoginState {
 
 export interface ISystemState {
   list: any[];
-  totalCount: number | string
+  totalCount: number | string;
 }
 
 export interface IRootWithModule {

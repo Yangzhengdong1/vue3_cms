@@ -16,7 +16,10 @@ import {
   ElCol,
   ElDatePicker,
   ElSelect,
-  ElBreadcrumb
+  ElBreadcrumb,
+  ElTable,
+  ElSwitch,
+  ElTag
 } from "element-plus";
 import {
   Search,
@@ -31,7 +34,8 @@ import {
   ShoppingTrolley,
   Shop,
   SwitchButton,
-  Edit
+  Edit,
+  ChatLineSquare
 } from "@element-plus/icons-vue";
 
 const icons = [
@@ -47,7 +51,8 @@ const icons = [
   ShoppingBag,
   ShoppingTrolley,
   SwitchButton,
-  Edit
+  Edit,
+  ChatLineSquare
 ];
 const components = [
   ElButton,
@@ -77,7 +82,11 @@ const components = [
   ElSelect,
   ElSelect.Option,
   ElBreadcrumb,
-  ElBreadcrumb.BreadcrumbItem
+  ElBreadcrumb.BreadcrumbItem,
+  ElTable,
+  ElTable.TableColumn,
+  ElSwitch,
+  ElTag
 ];
 const concatComponents = [...icons, ...components];
 

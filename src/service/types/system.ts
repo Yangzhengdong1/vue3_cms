@@ -1,12 +1,12 @@
 export interface IUserItem {
   wid: string;
   username: string;
-  phone: number;
+  phone: string;
   departmentId: string;
   roleId: string;
   roleName: string;
   departmentName: string;
-  isActive: number;
+  isActive: boolean;
   avatarUrl: any;
   createTime: string;
   updateTime: string;
