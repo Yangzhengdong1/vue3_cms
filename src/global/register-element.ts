@@ -35,7 +35,9 @@ import {
   Shop,
   SwitchButton,
   Edit,
-  ChatLineSquare
+  ChatLineSquare,
+  Sunny,
+  Moon
 } from "@element-plus/icons-vue";
 
 const icons = [
@@ -52,7 +54,9 @@ const icons = [
   ShoppingTrolley,
   SwitchButton,
   Edit,
-  ChatLineSquare
+  ChatLineSquare,
+  Sunny,
+  Moon
 ];
 const components = [
   ElButton,
