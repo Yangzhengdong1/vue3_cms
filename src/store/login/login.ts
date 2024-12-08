@@ -2,6 +2,7 @@ import type { Module } from "vuex";
 
 import localCache from "@/utils/local-cache";
 import mapMenusToRoutes, { pathMapToMenus } from "@/utils/map-menus";
+import message from "@/utils/message";
 
 import router from "@/router";
 import {
@@ -64,6 +65,7 @@ const loginModule: Module<ILoginState, IRootState> = {
       console.log("执行 accountLoginAction ", payload);
       const loginResult = await accountLoginService(payload);
       if (loginResult && loginResult.code !== 0) {
+        message.error(loginResult.message);
         console.log("登录出错！");
         return;
       }

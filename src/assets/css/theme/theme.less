@@ -1,0 +1,14 @@
+@import "./dark/base.less";
+@import "./dark/button.less";
+@import "./light/base.less";
+@import "./light/button.less";
+
+html,
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  background-color: var(--el-background-color, #ffffff);
+  color: var(--el-text-color-primary, #000000);
+}

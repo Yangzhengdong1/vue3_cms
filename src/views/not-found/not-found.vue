@@ -28,9 +28,9 @@
   }
 
   .not-found-content {
-    background-color: #ffffff;
+    background-color: var(--el-background-color);
     padding: 40px;
-    border-radius: 8px;
+    // border-radius: 8px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     // max-width: 600px;
     width: 100%;
@@ -40,29 +40,29 @@
 
   .not-found-title {
     font-size: 120px;
-    color: #ff6347; /* Tomato color for emphasis */
+    color: var(--el-color-danger); /* Tomato color for emphasis */
     margin-bottom: 20px;
   }
 
   .not-found-message {
     font-size: 18px;
-    color: #333;
+    color: var(--el-text-color-secondary);
     margin-bottom: 30px;
   }
 
   .home-link {
     font-size: 18px;
-    color: #007bff;
+    color: var(--el-color-primary);
     text-decoration: none;
     padding: 10px 20px;
-    border: 2px solid #007bff;
+    border: 2px solid var(--el-color-primary);
     border-radius: 5px;
     transition: background-color 0.3s ease;
     cursor: pointer;
   }
 
   .home-link:hover {
-    background-color: #007bff;
-    color: #ffffff;
+    background-color: var(--el-color-primary);
+    color: #fff;
   }
 </style>

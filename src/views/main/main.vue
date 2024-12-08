@@ -61,14 +61,14 @@
       .page-content {
         .page-info {
           height: 100%;
-          background: #fff;
+          background: var(--el-background-color);
           border-radius: 5px;
         }
       }
     }
 
     .el-main {
-      background-color: #f0f2f5;
+      background-color: var(--el-background-color-page);
     }
   }
 </style>

@@ -58,33 +58,36 @@
     margin-top: 16px; /* 与搜索区域的其他内容保持间距 */
     padding: 10px 40px;
     .reset-button {
-      background-color: #f4f4f5; /* 浅灰色背景 */
-      color: #606266; /* 深灰色字体 */
-      border: 1px solid #dcdfe6; /* 边框颜色 */
+      // background-color: #f4f4f5; /* 浅灰色背景 */
+      // color: #606266; /* 深灰色字体 */
+      // border: 1px solid #dcdfe6; /* 边框颜色 */
+
+      background-color: var(--el-btn-reset-background-color); /* 浅灰色背景 */
+      color: var(--el-btn-reset-text-color); /* 深灰色字体 */
+      border: 1px solid var(--el-btn-reset-border-color); /* 边框颜色 */
       border-radius: 4px; /* 圆角设计 */
       transition: all 0.3s; /* 动画过渡 */
     }
 
     .reset-button:hover {
-      background-color: #e6e6e6; /* 鼠标悬停时稍微变深 */
-      border-color: #c0c4cc;
-      color: #303133;
+      background-color: var(
+        --el-btn-reset-hover-background-color
+      ); /* 鼠标悬停时稍微变深 */
+      border-color: var(--el-btn-reset-hover-border-color);
+      color: var(--el-btn-reset-hover-text-color);
     }
 
     .confirm-button {
-      background-color: #409eff; /* 主题蓝色 */
-      color: #fff; /* 白色字体 */
+      background-color: var(--el-btn-background-color); /* 主题蓝色 */
+      color: var(--el-btn-text-color); /* 白色字体 */
       border-radius: 4px;
       transition: all 0.3s;
     }
 
     .confirm-button:hover {
-      background-color: #66b1ff; /* 悬停时更亮一些 */
-    }
-
-    .confirm-button:disabled {
-      background-color: #c0c4cc; /* 禁用状态为灰色 */
-      color: #ffffff;
+      background-color: var(
+        --el-btn-hover-background-color
+      ); /* 悬停时更亮一些 */
     }
   }
 </style>

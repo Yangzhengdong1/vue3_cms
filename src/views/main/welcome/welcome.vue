@@ -26,16 +26,19 @@
 <style scoped lang="less">
   .welcome {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f5f5; /* Light gray background */
+    background-color: var(
+      --el-table-header-background
+    ); /* Light gray background */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
     color: #333;
     text-align: center;
+    border-radius: 5px;
 
     .welcome-content {
-      background-color: #ffffff;
+      background-color: var(--el-background-color);
       padding: 40px;
       border-radius: 8px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -45,7 +48,7 @@
 
     .welcome-title {
       font-size: 32px;
-      color: #333;
+      color: var(--el-text-color-bold);
       margin-bottom: 20px;
       font-weight: 600;
       white-space: pre;
@@ -59,7 +62,7 @@
 
     .welcome-message {
       font-size: 18px;
-      color: #666;
+      color: var(--el-text-color-placeholder);
       margin-bottom: 30px;
     }
 
@@ -67,7 +70,7 @@
       font-size: 16px;
       text-decoration: none;
       color: #ffffff;
-      background-color: #4caf50; /* Subtle green color */
+      background-color: var(--el-btn-background-color); /* Subtle green color */
       padding: 12px 30px;
       border-radius: 5px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -75,7 +78,9 @@
     }
 
     .enter-btn:hover {
-      background-color: #45a049; /* Darker green on hover */
+      background-color: var(
+        --el-btn-hover-background-color
+      ); /* Darker green on hover */
     }
 
     .enter-btn:active {

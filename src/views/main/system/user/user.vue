@@ -5,7 +5,10 @@
       <template #isActive="scope">
         <el-switch
           v-model="scope.row.isActive"
-          style="--el-switch-on-color: #409eff; --el-switch-off-color: #dcdfe6"
+          style="
+            --el-switch-on-color: var(--el-color-primary);
+            --el-switch-off-color: var(--el-color-info);
+          "
           :active-action-icon="View"
           :inactive-action-icon="Hide"
         />

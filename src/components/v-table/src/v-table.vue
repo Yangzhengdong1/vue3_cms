@@ -15,6 +15,7 @@
           align="center"
         >
           <template #default="scope">
+            <!-- 将 row 传递给父组件，父组件接收：<component #slotName="scope" /> -->
             <slot :name="item.slotName" :row="scope.row">
               {{ scope.row[item.prop] }}
             </slot>
@@ -50,6 +51,6 @@
 <style scoped lang="less">
   .v-table {
     padding: 20px 30px;
-    border-top: 20px solid #f0f2f5;
+    border-top: 20px solid var(--el-background-color-page);
   }
 </style>
