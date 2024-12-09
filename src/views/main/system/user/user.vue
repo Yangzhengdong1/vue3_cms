@@ -1,13 +1,19 @@
 <template>
   <div class="user">
     <page-search :search-form-config="searchFormConfig" />
-    <v-table :table-data="userList" :prop-list="propList">
+    <v-table
+      title="用户列表"
+      :table-data="userList"
+      :prop-list="propList"
+      :selection-colum="true"
+      :index-colum="true"
+    >
       <template #isActive="scope">
         <el-switch
           v-model="scope.row.isActive"
           style="
             --el-switch-on-color: var(--el-color-primary);
-            --el-switch-off-color: var(--el-color-info);
+            --el-switch-off-color: var(--el-color-danger);
           "
           :active-action-icon="View"
           :inactive-action-icon="Hide"
@@ -40,7 +46,6 @@
   });
 
   const userList = computed<IUserList>(() => store.state.system.list);
-
   const propList = [
     {
       prop: "username",

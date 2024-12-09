@@ -1,12 +1,36 @@
 <template>
   <div class="v-table">
+    <div class="v-table-header">
+      <span>{{ title }}</span>
+      <div class="btns">
+        <el-button :icon="Refresh" v-if="refreshBtn">刷新</el-button>
+        <slot name="table-header">
+          <el-button :icon="CirclePlus" class="confirm-button" type="primary">
+            新增
+          </el-button>
+        </slot>
+      </div>
+    </div>
     <el-table
       :data="tableData"
-      max-height="500px"
+      max-height="420px"
       border
       style="width: 100%"
       empty-text="暂无数据~"
     >
+      <el-table-column
+        v-if="selectionColum"
+        type="selection"
+        width="55"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        v-if="indexColum"
+        type="index"
+        width="60"
+        label="序号"
+        align="center"
+      />
       <template v-for="item in propList" :key="item.prop">
         <el-table-column
           :prop="item.prop"
@@ -23,11 +47,21 @@
         </el-table-column>
       </template>
     </el-table>
+    <div class="v-table-footer">
+      <slot name="table-footer">
+        <el-pagination
+          :page-sizes="[100, 200, 300, 400]"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="400"
+        />
+      </slot>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
   import { defineProps, PropType } from "vue";
+  import { Refresh, CirclePlus } from "@element-plus/icons-vue";
 
   interface IProp {
     prop: string;
@@ -44,6 +78,26 @@
     propList: {
       type: Array as PropType<IProp[]>,
       required: true
+    },
+
+    selectionColum: {
+      type: Boolean,
+      default: false
+    },
+
+    indexColum: {
+      type: Boolean,
+      default: false
+    },
+
+    title: {
+      type: String,
+      default: ""
+    },
+
+    refreshBtn: {
+      type: Boolean,
+      default: true
     }
   });
 </script>
@@ -52,5 +106,22 @@
   .v-table {
     padding: 20px 30px;
     border-top: 20px solid var(--el-background-color-page);
+    .v-table-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      .btns {
+        display: flex;
+        gap: 12px;
+      }
+    }
+
+    .v-table-footer {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      margin-top: 20px;
+    }
   }
 </style>

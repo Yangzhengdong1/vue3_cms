@@ -10,12 +10,8 @@ import App from "./App.vue";
 import router from "./router";
 import store, { setupStore } from "./store";
 import { globalRegister } from "./global";
-import message from "@/utils/message";
 
 const app = createApp(App);
-
-// 挂载全局属性
-app.config.globalProperties.$message = message;
 
 async function initRoute() {
   // 初始化 vuex 中的数据

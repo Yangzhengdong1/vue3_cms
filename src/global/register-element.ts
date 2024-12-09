@@ -19,7 +19,8 @@ import {
   ElBreadcrumb,
   ElTable,
   ElSwitch,
-  ElTag
+  ElTag,
+  ElPagination
 } from "element-plus";
 import {
   Search,
@@ -37,7 +38,8 @@ import {
   Edit,
   ChatLineSquare,
   Sunny,
-  Moon
+  Moon,
+  Back
 } from "@element-plus/icons-vue";
 
 const icons = [
@@ -56,7 +58,8 @@ const icons = [
   Edit,
   ChatLineSquare,
   Sunny,
-  Moon
+  Moon,
+  Back
 ];
 const components = [
   ElButton,
@@ -90,7 +93,8 @@ const components = [
   ElTable,
   ElTable.TableColumn,
   ElSwitch,
-  ElTag
+  ElTag,
+  ElPagination
 ];
 const concatComponents = [...icons, ...components];
 

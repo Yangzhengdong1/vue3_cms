@@ -4,6 +4,7 @@ import { useStore } from "vuex";
 
 const Login = () => import("@/views/login/login.vue");
 const Main = () => import("@/views/main/main.vue");
+const About = () => import("@/views/about/about.vue");
 const NotFound = () => import("@/views/not-found/not-found.vue");
 
 import { firstMenu, pathMapToMenus } from "@/utils/map-menus";
@@ -24,7 +25,13 @@ const routes: RouteRecordRaw[] = [
 
   {
     path: "/login",
+    name: "login",
     component: Login
+  },
+  {
+    path: "/about",
+    name: "about",
+    component: About
   },
   {
     path: "/:pathMatch(.*)*",
@@ -54,6 +61,8 @@ router.beforeEach((to) => {
   let title = "";
   if (to.path === "/login") {
     title = "登录";
+  } else if (to.path === "/about") {
+    title = "个人资料";
   } else {
     const store = useStore();
     store.dispatch("login/getCurrentUserMenu", to.path);

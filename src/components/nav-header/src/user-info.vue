@@ -15,7 +15,7 @@
             <el-icon><Setting /></el-icon>
             <span>设置</span>
           </el-dropdown-item>
-          <el-dropdown-item>
+          <el-dropdown-item @click="$router.push('/about')">
             <el-icon><Edit /></el-icon>
             <span>个人资料</span>
           </el-dropdown-item>

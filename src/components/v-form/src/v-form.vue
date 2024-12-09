@@ -70,7 +70,7 @@
 
     labelItemStyle: {
       type: Object,
-      default: () => ({ padding: "10px 40px" })
+      default: () => ({ padding: "10px 30px" })
     },
     colLayout: {
       type: Object,

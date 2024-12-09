@@ -5,6 +5,11 @@ h2 {
   box-sizing: border-box;
 }
 
+::selection {
+  color: #fff;
+  background-color: var(--el-color-primary);
+}
+
 html, body, #app {
   width: 100%;
   height: 100%;
@@ -14,6 +19,39 @@ html, body, #app {
   white-space: nowrap;        /* 防止文字换行 */
   overflow: hidden;           /* 隐藏溢出的内容 */
   text-overflow: ellipsis;    /* 用省略号表示溢出的部分 */
+}
+
+.reset-button {
+  // background-color: #f4f4f5; /* 浅灰色背景 */
+  // color: #606266; /* 深灰色字体 */
+  // border: 1px solid #dcdfe6; /* 边框颜色 */
+
+  background-color: var(--el-btn-reset-background-color)!important; /* 浅灰色背景 */
+  color: var(--el-btn-reset-text-color)!important; /* 深灰色字体 */
+  border: 1px solid var(--el-btn-reset-border-color)!important; /* 边框颜色 */
+  border-radius: 4px; /* 圆角设计 */
+  transition: all 0.3s; /* 动画过渡 */
+}
+
+.reset-button:hover {
+  background-color: var(
+    --el-btn-reset-hover-background-color
+  )!important; /* 鼠标悬停时稍微变深 */
+  border-color: var(--el-btn-reset-hover-border-color)!important;
+  color: var(--el-btn-reset-hover-text-color)!important;
+}
+
+.confirm-button {
+  background-color: var(--el-btn-background-color)!important; /* 主题蓝色 */
+  color: var(--el-btn-text-color)!important; /* 白色字体 */
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.confirm-button:hover {
+  background-color: var(
+    --el-btn-hover-background-color
+  )!important; /* 悬停时更亮一些 */
 }
 
 

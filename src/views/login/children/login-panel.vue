@@ -56,6 +56,14 @@
     .title {
       text-align: center;
     }
+    .el-tabs {
+      // border: 0;
+      // background: var(--el-background-color-page);
+      border-radius: 12px;
+      // box-shadow: var(--v-box-shadow-1);
+      transition: all 0.3s ease-in-out;
+      overflow: hidden;
+    }
     .login-opera {
       display: flex;
       justify-content: space-between;
@@ -63,6 +71,9 @@
     }
     .login-btn {
       width: 100%;
+      border: none;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
     }
   }
 
