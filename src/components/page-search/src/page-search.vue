@@ -1,10 +1,6 @@
 <template>
   <div class="page-search">
-    <v-form
-      v-bind="searchFormConfig"
-      v-model="formData"
-      @update:model-value="handleUpdateModel"
-    >
+    <v-form v-bind="searchFormConfig" v-model="formData">
       <template #footer>
         <div class="search-buttons">
           <el-button
@@ -41,11 +37,7 @@
     dateTime: ""
   });
 
-  // 显式监听 v-model update 事件，并将传递的值赋值给 formData
-  const handleUpdateModel = (value: any) => (formData.value = { ...value });
-
   const handleRefreshForm = () => {
-    // 不显式监听 update 事件，这里拿不到值
     console.log(formData.value);
   };
 </script>

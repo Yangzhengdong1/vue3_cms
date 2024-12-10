@@ -10,8 +10,8 @@ export interface ILoginState {
 }
 
 export interface ISystemState {
-  list: any[];
-  totalCount: number | string;
+  userList: any[];
+  userTotalCount: number | string;
 }
 
 export interface IRootWithModule {

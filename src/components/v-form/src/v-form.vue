@@ -18,13 +18,15 @@
                 <el-input
                   :placeholder="item.placeholder"
                   :show-password="item.type === 'password'"
-                  v-model="formData[item.field]"
+                  :model-value="modelValue[item.field]"
+                  @update:model-value="handleValueChange($event, item.field)"
                 ></el-input>
               </template>
               <template v-else-if="item.type === 'select'">
                 <el-select
                   :placeholder="item.placeholder"
-                  v-model="formData[item.field]"
+                  :model-value="modelValue[item.field]"
+                  @update:model-value="handleValueChange($event, item.field)"
                 >
                   <el-option
                     v-for="option in item.options"
@@ -38,7 +40,8 @@
               <template v-else-if="item.type === 'datepicker'">
                 <el-date-picker
                   v-bind="item.otherOptions"
-                  v-model="formData[item.field]"
+                  :model-value="modelValue[item.field]"
+                  @update:model-value="handleValueChange($event, item.field)"
                 >
                 </el-date-picker>
               </template>
@@ -90,16 +93,10 @@
     }
   });
 
-  // 浅拷贝父组件传递过来的值，防止表单 v-model 绑定时越级修改父组件的值
-
-  const formData = ref({ ...props.modelValue } as any);
-  watch(
-    formData,
-    () => {
-      emit("update:modelValue", formData);
-    },
-    { deep: true }
-  );
+  const handleValueChange = (value: any, field: string) => {
+    // 在发送这个事件时，父组件会直接修改元数据，不必再在父组件显式监听 update:modelValue
+    emit("update:modelValue", { ...props.modelValue, [field]: value });
+  };
 </script>
 
 <style scoped lang="less">

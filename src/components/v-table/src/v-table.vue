@@ -51,9 +51,13 @@
     <div class="v-table-footer">
       <slot name="table-footer">
         <el-pagination
-          :page-sizes="[100, 200, 300, 400]"
+          v-model:current-page="page.currentPage"
+          v-model:page-size="page.pageSize"
+          :page-sizes="[10, 20, 30]"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="400"
+          :total="dataCount"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
         />
       </slot>
     </div>
@@ -61,31 +65,30 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps, withDefaults } from "vue";
+  import { defineProps, withDefaults, defineEmits } from "vue";
   import { Refresh, CirclePlus } from "@element-plus/icons-vue";
 
-  export interface IProp {
-    prop: string;
-    label?: string;
-    minWidth?: string;
-    slotName?: string;
-    otherAttr?: object;
-  }
+  import type { IComponentProps } from "./types";
 
-  interface IComponentProps {
-    tableData: any[];
-    propList: IProp[];
-    selectionColum?: boolean;
-    indexColum?: boolean;
-    title?: string;
-    refreshBtn?: boolean;
-  }
-  withDefaults(defineProps<IComponentProps>(), {
+  const emits = defineEmits(["@update:page"]);
+  const props = withDefaults(defineProps<IComponentProps>(), {
     selectionColum: false,
     indexColum: false,
     refreshBtn: true,
-    title: ""
+    title: "",
+    page: () => ({
+      currentPage: 1,
+      pageSize: 10
+    })
   });
+
+  const handleSizeChange = (value: number) => {
+    emits("@update:page", { ...props.page, pageSize: value });
+  };
+
+  const handleCurrentChange = (value: number) => {
+    emits("@update:page", { ...props.page, currentPage: value });
+  };
 </script>
 
 <style scoped lang="less">
