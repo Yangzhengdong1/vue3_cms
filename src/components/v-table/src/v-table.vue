@@ -36,6 +36,7 @@
           :prop="item.prop"
           :label="item.label"
           :min-width="item.minWidth"
+          v-bind="item.otherAttr"
           align="center"
         >
           <template #default="scope">
@@ -60,45 +61,30 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps, PropType } from "vue";
+  import { defineProps, withDefaults } from "vue";
   import { Refresh, CirclePlus } from "@element-plus/icons-vue";
 
-  interface IProp {
+  export interface IProp {
     prop: string;
-    label: string;
-    minWidth: string;
+    label?: string;
+    minWidth?: string;
     slotName?: string;
+    otherAttr?: object;
   }
-  defineProps({
-    tableData: {
-      type: Array,
-      required: true
-    },
 
-    propList: {
-      type: Array as PropType<IProp[]>,
-      required: true
-    },
-
-    selectionColum: {
-      type: Boolean,
-      default: false
-    },
-
-    indexColum: {
-      type: Boolean,
-      default: false
-    },
-
-    title: {
-      type: String,
-      default: ""
-    },
-
-    refreshBtn: {
-      type: Boolean,
-      default: true
-    }
+  interface IComponentProps {
+    tableData: any[];
+    propList: IProp[];
+    selectionColum?: boolean;
+    indexColum?: boolean;
+    title?: string;
+    refreshBtn?: boolean;
+  }
+  withDefaults(defineProps<IComponentProps>(), {
+    selectionColum: false,
+    indexColum: false,
+    refreshBtn: true,
+    title: ""
   });
 </script>
 

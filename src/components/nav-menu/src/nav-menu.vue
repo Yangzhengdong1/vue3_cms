@@ -58,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-  import { computed, defineProps, ref } from "vue";
+  import { computed, defineProps, ref, withDefaults } from "vue";
   import { useRoute } from "vue-router";
 
   import { useStore } from "@/store";
@@ -66,24 +66,24 @@
 
   import type { IMenusChildren } from "@/service/types/login";
 
+  interface IProps {
+    collapse: boolean;
+  }
+  withDefaults(defineProps<IProps>(), {
+    collapse: false
+  });
+
   const menuTheme1 = {
     "active-text-color": "#4caf50 ",
     "background-color": "#001529",
     "text-color": "#ccd1d9 "
   };
 
-  const menuTheme2 = {
-    "active-text-color": "#ffd700", // 亮金色，用于高亮选中项
-    "background-color": "#001529", // 深蓝色背景
-    "text-color": "#aab2bd" // 浅灰蓝色文本
-  };
-
-  defineProps({
-    collapse: {
-      type: Boolean,
-      default: false
-    }
-  });
+  // const menuTheme2 = {
+  //   "active-text-color": "#ffd700", // 亮金色，用于高亮选中项
+  //   "background-color": "#001529", // 深蓝色背景
+  //   "text-color": "#aab2bd" // 浅灰蓝色文本
+  // };
 
   const store = useStore();
   const route = useRoute();

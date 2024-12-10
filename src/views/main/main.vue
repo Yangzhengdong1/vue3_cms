@@ -60,7 +60,6 @@
       }
       .page-content {
         .page-info {
-          height: 100%;
           background: var(--el-background-color);
           border-radius: 5px;
         }

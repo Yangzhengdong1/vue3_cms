@@ -20,9 +20,16 @@
         />
       </template>
       <template #roleName="scope">
-        <el-tag v-if="scope.row.roleName" type="primary">
+        <el-tag
+          v-if="scope.row.roleName"
+          :type="(roleLevelMap as any)[scope.row.level]"
+        >
           {{ scope.row.roleName }}
         </el-tag>
+      </template>
+      <template #handler>
+        <el-button type="primary" :icon="Edit" link>编辑</el-button>
+        <el-button type="danger" :icon="Delete" link>删除</el-button>
       </template>
     </v-table>
   </div>
@@ -30,7 +37,7 @@
 
 <script setup lang="ts">
   import { computed } from "vue";
-  import { Hide, View } from "@element-plus/icons-vue";
+  import { Hide, View, Edit, Delete } from "@element-plus/icons-vue";
 
   import PageSearch from "@/components/page-search";
   import VTable from "@/components/v-table";
@@ -38,20 +45,24 @@
 
   import { useStore } from "@/store/index";
   import type { IUserList } from "@/service/types/system";
+  import { IProp } from "@/components/v-table/src/v-table.vue";
 
   const store = useStore();
   store.dispatch("system/getPageListAction", {
     url: "/user/get-list",
-    queryInfo: { pageSize: 1, pageNum: 100 }
+    queryInfo: { pageNum: 1, pageSize: 100 }
   });
 
   const userList = computed<IUserList>(() => store.state.system.list);
-  const propList = [
+  const propList: IProp[] = [
     {
       prop: "username",
       minWidth: "100",
       label: "用户名",
-      slotName: "username"
+      slotName: "username",
+      otherAttr: {
+        showOverflowTooltip: true
+      }
     },
     {
       prop: "roleName",
@@ -62,7 +73,10 @@
     {
       prop: "realname",
       minWidth: "100",
-      label: "真实姓名"
+      label: "真实姓名",
+      otherAttr: {
+        showOverflowTooltip: true
+      }
     },
     {
       prop: "phone",
@@ -84,16 +98,21 @@
       prop: "createTime",
       minWidth: "175",
       label: "创建时间"
+    },
+    {
+      prop: "handler",
+      minWidth: "120",
+      slotName: "handler"
     }
   ];
 
-  const roles = [
-    { name: "总裁", color: "#FF4D4F", level: "超级管理员" },
-    { name: "总裁助理", color: "#FAAD14", level: "管理员" },
-    { name: "销售经理", color: "#1890FF", level: "高级用户" },
-    { name: "销售人员", color: "#52C41A", level: "普通用户" },
-    { name: "访客", color: "#BFBFBF", level: "访客" }
-  ];
+  const roleLevelMap = {
+    "Super Administrator": "danger", // 超管
+    Administrator: "warning", // 管理员
+    "Advanced User": "primary", // 高级用户
+    "Regular User": "success", // 普通用户
+    Guest: "info" // 游客
+  };
 </script>
 
 <style scoped lang="less"></style>

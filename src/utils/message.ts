@@ -16,8 +16,8 @@ const defaultOptions: Partial<IMessageOptions> = {
   grouping: false
 };
 
-let lastMessage = "";
-let lastMessageType = "";
+// let lastMessage = "";
+// let lastMessageType = "";
 const message = (options: IMessageOptions | string) => {
   if (typeof options === "string") {
     options = { message: options };
@@ -34,8 +34,8 @@ const message = (options: IMessageOptions | string) => {
   // }
 
   // 更新最后一条消息记录
-  lastMessage = finalOptions.message;
-  lastMessageType = finalOptions.type || "info";
+  // lastMessage = finalOptions.message;
+  // lastMessageType = finalOptions.type || "info";
 
   return ElMessage(finalOptions);
 };

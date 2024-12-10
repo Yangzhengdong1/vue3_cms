@@ -11,17 +11,26 @@
 </template>
 
 <script setup lang="ts">
+  import { defineProps } from "vue";
+
   export interface IBreadcrumbs {
     name: string;
     path?: string;
   }
-  import { defineProps, PropType } from "vue";
-  defineProps({
-    breadcrumbs: {
-      type: Array as PropType<IBreadcrumbs[]>,
-      default: () => []
-    }
-  });
+  interface IProps {
+    breadcrumbs: IBreadcrumbs[];
+  }
+
+  // 方式一：
+  defineProps<IProps>();
+
+  // 方式二：
+  // defineProps({
+  //   breadcrumbs: {
+  //     type: Array as PropType<IBreadcrumbs[]>,
+  //     default: () => []
+  //   }
+  // });
 </script>
 
 <style scoped></style>

@@ -28,12 +28,12 @@
   import { Refresh, Search } from "@element-plus/icons-vue";
   import VForm from "@/components/v-form";
 
-  defineProps({
-    searchFormConfig: {
-      type: Object,
-      required: true
-    }
-  });
+  interface IProps {
+    searchFormConfig: object;
+  }
+
+  defineProps<IProps>();
+
   const formData = ref({
     name: "",
     password: "",
@@ -51,6 +51,9 @@
 </script>
 
 <style scoped lang="less">
+  /deep/.el-form-item {
+    margin-bottom: 16px;
+  }
   .search-buttons {
     display: flex;
     justify-content: flex-end;

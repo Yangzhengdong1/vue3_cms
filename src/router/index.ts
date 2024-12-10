@@ -7,7 +7,7 @@ const Main = () => import("@/views/main/main.vue");
 const About = () => import("@/views/about/about.vue");
 const NotFound = () => import("@/views/not-found/not-found.vue");
 
-import { firstMenu, pathMapToMenus } from "@/utils/map-menus";
+import { firstMenu } from "@/utils/map-menus";
 import localCache from "@/utils/local-cache";
 
 const routes: RouteRecordRaw[] = [

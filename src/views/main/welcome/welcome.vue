@@ -25,6 +25,7 @@
 
 <style scoped lang="less">
   .welcome {
+    height: calc(100vh - 90px);
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(
       --el-table-header-background
@@ -32,7 +33,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
     color: #333;
     text-align: center;
     border-radius: 5px;

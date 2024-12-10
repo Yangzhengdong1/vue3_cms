@@ -54,10 +54,11 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps, watch, defineEmits, PropType, ref } from "vue";
+  import { defineProps, watch, defineEmits, ref, PropType } from "vue";
   import { IFormItem } from "./type";
 
   const emit = defineEmits(["update:modelValue"]);
+
   const props = defineProps({
     modelValue: {
       type: Object,
@@ -90,7 +91,8 @@
   });
 
   // 浅拷贝父组件传递过来的值，防止表单 v-model 绑定时越级修改父组件的值
-  const formData = ref({ ...props.modelValue });
+
+  const formData = ref({ ...props.modelValue } as any);
   watch(
     formData,
     () => {
@@ -102,6 +104,6 @@
 
 <style scoped lang="less">
   .v-form {
-    padding-top: 22px;
+    padding-top: 20px;
   }
 </style>

@@ -120,7 +120,7 @@ const loginModule: Module<ILoginState, IRootState> = {
     },
 
     // 刷新时重载登录相关数据
-    async loadLocalLogin({ commit, dispatch, state }) {
+    async loadLocalLogin({ commit, dispatch }) {
       const token = localCache.getCache("token", "local");
       if (token) {
         commit("changeToken", token);
