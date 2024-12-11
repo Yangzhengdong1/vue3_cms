@@ -4,7 +4,8 @@
       :table-data="list"
       :data-count="total"
       :prop-list="contentConfig.propList"
-      v-bind="contentConfig.childrenProps"
+      :tableProps="contentConfig.tableProps"
+      v-bind="contentConfig.otherComponentProps"
       v-model:page="pageInfo"
     >
       <template #isActive="scope">
@@ -98,6 +99,8 @@
   const otherSlotNames = props.contentConfig.propList.filter((item) => {
     return item.slotName && !fixedSlotNames.includes(item?.slotName);
   });
+
+  console.log(otherSlotNames);
 
   defineExpose({
     fetchPageList

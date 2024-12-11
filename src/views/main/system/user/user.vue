@@ -21,7 +21,7 @@
 <script setup lang="ts">
   import PageContent from "@/components/page-content";
   import PageSearch from "@/components/page-search";
-  import { searchFormConfig } from "./form.config";
+  import { searchFormConfig } from "./search.config";
   import { contentConfig, roleLevelMap } from "./table.config";
 
   import { usePageContent } from "@/hooks/use-page-content";

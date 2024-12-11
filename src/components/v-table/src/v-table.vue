@@ -16,7 +16,7 @@
       max-height="420px"
       border
       style="width: 100%"
-      empty-text="暂无数据~"
+      v-bind="tableProps"
     >
       <el-table-column
         v-if="selectionColum"
@@ -79,7 +79,8 @@
     page: () => ({
       currentPage: 1,
       pageSize: 10
-    })
+    }),
+    tableProps: () => ({})
   });
 
   const handleSizeChange = (value: number) => {

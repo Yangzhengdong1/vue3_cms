@@ -53,7 +53,12 @@ const propList: IProp[] = [
   }
 ];
 
-const childrenProps = {
+const tableProps = {
+  emptyText: "暂无数据~",
+  height: "420px"
+};
+
+const otherComponentProps = {
   selectionColum: true,
   indexColum: true,
   title: "用户列表"
@@ -77,5 +82,6 @@ export const roleLevelMap: IRoleLeevelMap = {
 export const contentConfig: IContentConfig = {
   pageName: "user",
   propList,
-  childrenProps
+  tableProps,
+  otherComponentProps
 };

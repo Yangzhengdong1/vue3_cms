@@ -5,15 +5,15 @@ const formItems: IFormItem[] = [
     field: "username",
     defaultValue: "",
     type: "input",
-    label: "名称",
-    placeholder: "请输入具体名称"
+    label: "昵称",
+    placeholder: "请输入昵称"
   },
   {
-    field: "password",
+    field: "phone",
     defaultValue: "",
-    type: "password",
-    label: "密码",
-    placeholder: "请输入密码"
+    type: "input",
+    label: "手机号",
+    placeholder: "请输入手机号码"
   },
   {
     field: "status",
@@ -36,7 +36,7 @@ const formItems: IFormItem[] = [
     field: "dateTime",
     defaultValue: [],
     type: "datepicker",
-    label: "时间",
+    label: "创建时间",
     otherOptions: {
       "value-format": "YYYY-MM-DD",
       type: "daterange",

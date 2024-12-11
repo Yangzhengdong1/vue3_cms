@@ -19,4 +19,5 @@ export interface IComponentProps {
   title?: string;
   refreshBtn?: boolean;
   page: IPageInfo;
+  tableProps?: any;
 }
