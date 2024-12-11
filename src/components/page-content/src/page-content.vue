@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps, computed, ref, watch } from "vue";
+  import { defineProps, computed, ref, watch, defineExpose } from "vue";
   import { Hide, View, Edit, Delete } from "@element-plus/icons-vue";
   import VTable from "@/components/v-table";
 
@@ -60,12 +60,13 @@
   );
 
   // 发请求
-  const fetchPageList = () => {
+  const fetchPageList = (queryInfo?: any) => {
     store.dispatch("system/getPageListAction", {
       pageName: props.contentConfig.pageName,
       queryInfo: {
         pageNum: pageInfo.value.currentPage,
-        pageSize: pageInfo.value.pageSize
+        pageSize: pageInfo.value.pageSize,
+        ...queryInfo
       }
     });
   };
@@ -79,6 +80,10 @@
   const total = computed(() =>
     store.getters["system/getDataCount"](props.contentConfig.pageName)
   );
+
+  defineExpose({
+    fetchPageList
+  });
 </script>
 
 <style scoped lang="less"></style>

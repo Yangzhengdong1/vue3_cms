@@ -2,35 +2,39 @@ import type { IFormItem, IForm } from "@/components/v-form";
 
 const formItems: IFormItem[] = [
   {
-    field: "name",
+    field: "username",
+    defaultValue: "",
     type: "input",
     label: "名称",
     placeholder: "请输入具体名称"
   },
   {
     field: "password",
+    defaultValue: "",
     type: "password",
     label: "密码",
     placeholder: "请输入密码"
   },
   {
     field: "status",
+    defaultValue: true,
     type: "select",
     label: "状态",
     placeholder: "请选择用户状态",
     options: [
       {
-        label: "禁用",
-        value: false
-      },
-      {
         label: "启用",
         value: true
+      },
+      {
+        label: "禁用",
+        value: false
       }
     ]
   },
   {
     field: "dateTime",
+    defaultValue: [],
     type: "datepicker",
     label: "时间",
     otherOptions: {

@@ -10,7 +10,12 @@
           >
             重置
           </el-button>
-          <el-button :icon="Search" class="confirm-button" type="primary">
+          <el-button
+            :icon="Search"
+            class="confirm-button"
+            type="primary"
+            @click="handleSerchConfirm"
+          >
             确认
           </el-button>
         </div>
@@ -20,25 +25,38 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, defineProps } from "vue";
+  import { ref, defineProps, defineEmits } from "vue";
   import { Refresh, Search } from "@element-plus/icons-vue";
   import VForm from "@/components/v-form";
+  import type { IForm } from "@/components/v-form";
+
+  const emit = defineEmits(["refreshForm", "serchConfirm"]);
 
   interface IProps {
-    searchFormConfig: object;
+    searchFormConfig: IForm;
   }
+  const props = defineProps<IProps>();
 
-  defineProps<IProps>();
-
-  const formData = ref({
-    name: "",
-    password: "",
-    status: false,
-    dateTime: ""
-  });
+  // 动态获取表单字段
+  const originalFormData: any = {};
+  props.searchFormConfig.formItems.forEach(
+    (item) => (originalFormData[item.field] = item.defaultValue)
+  );
+  const formData = ref(originalFormData);
 
   const handleRefreshForm = () => {
-    console.log(formData.value);
+    formData.value = originalFormData;
+    const [startTime = "", endTime = ""] = formData.value.dateTime ?? [];
+    const queryInfo = { ...formData.value, startTime, endTime } as any;
+    delete queryInfo.dateTime;
+    emit("refreshForm", queryInfo);
+  };
+
+  const handleSerchConfirm = () => {
+    const [startTime = "", endTime = ""] = formData.value.dateTime ?? [];
+    const queryInfo = { ...formData.value, startTime, endTime } as any;
+    delete queryInfo.dateTime;
+    emit("serchConfirm", queryInfo);
   };
 </script>
 

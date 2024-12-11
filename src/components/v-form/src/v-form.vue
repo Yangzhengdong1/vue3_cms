@@ -57,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps, watch, defineEmits, ref, PropType } from "vue";
+  import { defineProps, defineEmits, PropType } from "vue";
   import { IFormItem } from "./type";
 
   const emit = defineEmits(["update:modelValue"]);

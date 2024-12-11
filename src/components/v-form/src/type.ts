@@ -6,6 +6,7 @@ export interface IOption {
 
 export interface IFormItem {
   field: string;
+  defaultValue: any;
   type: IFormTypes;
   label: string;
   rules?: any[];
