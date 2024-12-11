@@ -1,7 +1,7 @@
 <template>
   <div class="page-content">
     <v-table
-      :table-data="userList"
+      :table-data="list"
       :data-count="total"
       :prop-list="contentConfig.propList"
       v-bind="contentConfig.childrenProps"
@@ -18,17 +18,30 @@
           :inactive-action-icon="Hide"
         />
       </template>
-      <template #roleName="scope">
-        <el-tag
-          v-if="scope.row.roleName && roleLevelMap"
-          :type="(roleLevelMap as any)[scope.row.level]"
-        >
-          {{ scope.row.roleName }}
-        </el-tag>
+      <template #status="scope">
+        <el-switch
+          v-model="scope.row.status"
+          style="
+            --el-switch-on-color: var(--el-color-primary);
+            --el-switch-off-color: var(--el-color-danger);
+          "
+          :active-action-icon="View"
+          :inactive-action-icon="Hide"
+        />
       </template>
+
       <template #handler>
         <el-button type="primary" :icon="Edit" link>编辑</el-button>
         <el-button type="danger" :icon="Delete" link>删除</el-button>
+      </template>
+
+      <!-- 动态注册插槽 -->
+      <template
+        v-for="item in otherSlotNames"
+        :key="item.slotName"
+        #[item.slotName]="scope"
+      >
+        <slot :name="item.slotName" :row="scope.row"></slot>
       </template>
     </v-table>
   </div>
@@ -59,7 +72,7 @@
     { deep: true }
   );
 
-  // 发请求
+  // 发送请求
   const fetchPageList = (queryInfo?: any) => {
     store.dispatch("system/getPageListAction", {
       pageName: props.contentConfig.pageName,
@@ -70,16 +83,21 @@
       }
     });
   };
-
   fetchPageList();
 
   // 从 Vuex 获取数据
-  const userList = computed(() =>
+  const list = computed(() =>
     store.getters["system/getDataList"](props.contentConfig.pageName)
   );
   const total = computed(() =>
     store.getters["system/getDataCount"](props.contentConfig.pageName)
   );
+
+  // 获取其他动态插槽
+  const fixedSlotNames = ["status", "isActive", "handler"];
+  const otherSlotNames = props.contentConfig.propList.filter((item) => {
+    return item.slotName && !fixedSlotNames.includes(item?.slotName);
+  });
 
   defineExpose({
     fetchPageList

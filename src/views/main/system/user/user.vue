@@ -5,11 +5,16 @@
       @serch-confirm="handleQuery"
       @refresh-form="handleRefresh"
     />
-    <page-content
-      ref="pageContentRef"
-      :content-config="contentConfig"
-      :role-level-map="roleLevelMap"
-    />
+    <page-content ref="pageContentRef" :content-config="contentConfig">
+      <template #roleName="scope">
+        <el-tag
+          v-if="scope.row.roleName"
+          :type="(roleLevelMap as any)[scope.row.level]"
+        >
+          {{ scope.row.roleName }}
+        </el-tag>
+      </template>
+    </page-content>
   </div>
 </template>
 
@@ -20,7 +25,6 @@
   import { contentConfig, roleLevelMap } from "./table.config";
 
   import { usePageContent } from "@/hooks/use-page-content";
-
   const [pageContentRef, handleQuery, handleRefresh] = usePageContent();
 </script>
 

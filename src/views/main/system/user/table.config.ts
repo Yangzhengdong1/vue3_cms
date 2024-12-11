@@ -1,12 +1,11 @@
 import { IProp } from "@/components/v-table/index";
-import { IContentConfig, IRoleLeevelMap } from "@/components/page-content";
+import { IContentConfig } from "@/components/page-content";
 
 const propList: IProp[] = [
   {
     prop: "username",
     minWidth: "100",
     label: "用户名",
-    slotName: "username",
     otherAttr: {
       showOverflowTooltip: true
     }
@@ -49,7 +48,8 @@ const propList: IProp[] = [
   {
     prop: "handler",
     minWidth: "120",
-    slotName: "handler"
+    slotName: "handler",
+    label: "操作"
   }
 ];
 
@@ -59,6 +59,13 @@ const childrenProps = {
   title: "用户列表"
 };
 
+interface IRoleLeevelMap {
+  "Super Administrator": "danger"; // 超管
+  Administrator: "warning"; // 管理员
+  "Advanced User": "primary"; // 高级用户
+  "Regular User": "success"; // 普通用户
+  Guest: "info"; // 游客
+}
 export const roleLevelMap: IRoleLeevelMap = {
   "Super Administrator": "danger",
   Administrator: "warning",
