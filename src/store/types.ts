@@ -7,6 +7,7 @@ export interface ILoginState {
   token: string;
   userMenus: any;
   currentMenu: any;
+  userPermissions: string[];
 }
 
 export interface ISystemState {

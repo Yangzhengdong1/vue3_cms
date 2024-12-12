@@ -27,6 +27,10 @@ export interface IDataType<T> {
   message: string;
 }
 
+export interface IPermissionsType<T> extends IDataType<T> {
+  permissions: T;
+}
+
 export interface IListType<T> {
   code: number;
   totalCount?: number;

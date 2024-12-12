@@ -1,5 +1,5 @@
 import axios from "../index";
-import { IDataType } from "@/service/types/request";
+import { IDataType, IPermissionsType } from "@/service/types/request";
 import {
   IAccount,
   ILoginResult,
@@ -10,7 +10,8 @@ import {
 enum LoginApi {
   AccountLogin = "/login",
   LoginUserInfo = "/user/info/",
-  LoginUserMenus = "/menu/get-user-menu"
+  LoginUserMenus = "/menu/get-user-menu",
+  LoginUserPermissions = "/role/get-permission-list"
 }
 
 export const accountLoginService = (params: IAccount) => {
@@ -30,4 +31,9 @@ export const getUserInfoService = (id: string) => {
 export const getUserMenusService = () => {
   const url = LoginApi.LoginUserMenus;
   return axios.get<IDataType<IUserMenusResult>>({ url });
+};
+
+export const getUserPermsService = () => {
+  const url = LoginApi.LoginUserPermissions;
+  return axios.get<IPermissionsType<string[]>>({ url });
 };

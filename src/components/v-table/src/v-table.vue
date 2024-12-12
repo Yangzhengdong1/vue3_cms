@@ -5,9 +5,9 @@
       <div class="btns">
         <el-button :icon="Refresh" v-if="refreshBtn">刷新</el-button>
         <slot name="table-header">
-          <el-button :icon="CirclePlus" class="confirm-button" type="primary">
+          <!-- <el-button :icon="CirclePlus" class="confirm-button" type="primary">
             新增
-          </el-button>
+          </el-button> -->
         </slot>
       </div>
     </div>

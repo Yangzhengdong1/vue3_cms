@@ -8,7 +8,8 @@ import router from "@/router";
 import {
   accountLoginService,
   getUserInfoService,
-  getUserMenusService
+  getUserMenusService,
+  getUserPermsService
 } from "@/service/login/login.service";
 
 import type { IRootState, ILoginState } from "../types";
@@ -37,17 +38,20 @@ const loginModule: Module<ILoginState, IRootState> = {
       token: "",
       userInfo: {},
       userMenus: [],
-      currentMenu: {}
+      currentMenu: {},
+      userPermissions: []
     };
   },
   mutations: {
     changeToken(state, token: string) {
       state.token = token;
     },
+
     changeUserInfo(state, userInfo: IUserInfoResult) {
       state.userInfo = userInfo;
       localCache.setCache("userInfo", userInfo, "local");
     },
+
     changeUserMenus(state, userMenus: IUserMenusResult) {
       state.userMenus = userMenus;
       localCache.setCache("userMenus", state.userMenus, "local");
@@ -56,11 +60,17 @@ const loginModule: Module<ILoginState, IRootState> = {
       const routes = mapMenusToRoutes(state.userMenus);
       routes.forEach((route) => router.addRoute("main", route));
     },
+
     changeCurrentMenu(state, currentMenu: IUserMenusResult) {
       state.currentMenu = currentMenu;
+    },
+
+    changeUserPermissions(state, permissions: string[]) {
+      state.userPermissions = permissions;
     }
   },
   actions: {
+    // 登录
     async accountLoginAction(ctx, payload: IAccount) {
       console.log("执行 accountLoginAction ", payload);
       const loginResult = await accountLoginService(payload);
@@ -87,6 +97,7 @@ const loginModule: Module<ILoginState, IRootState> = {
       ctx.dispatch("getCurrentUserMenu", "/main/welcome");
     },
 
+    // 获取用户信息
     async getUserInfoAction(ctx, id: string) {
       try {
         const userInfoResult = await getUserInfoService(id);
@@ -99,6 +110,7 @@ const loginModule: Module<ILoginState, IRootState> = {
       }
     },
 
+    // 获取用户菜单
     async getUserMenusAction(ctx) {
       // todo: 请求后需要做个判断，数据是否发生变化，无变化不写入
       try {
@@ -111,6 +123,18 @@ const loginModule: Module<ILoginState, IRootState> = {
         }
       } catch (error) {
         console.log("请求用户菜单出错！");
+      }
+    },
+
+    // 获取用户权限列表
+    async getUserPermsAction(ctx) {
+      try {
+        const result = await getUserPermsService();
+        if (result && result.code == 0) {
+          ctx.commit("changeUserPermissions", result.permissions);
+        }
+      } catch (error) {
+        console.log("获取用户权限失败！");
       }
     },
 
@@ -129,6 +153,7 @@ const loginModule: Module<ILoginState, IRootState> = {
         const id = localCache.getCache("userId", "local");
         await dispatch("getUserInfoAction", id);
         await dispatch("getUserMenusAction");
+        await dispatch("getUserPermsAction");
       }
     }
   }
