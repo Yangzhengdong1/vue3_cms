@@ -3,7 +3,9 @@
     <div class="v-table-header">
       <span>{{ title }}</span>
       <div class="btns">
-        <el-button :icon="Refresh" v-if="refreshBtn">刷新</el-button>
+        <!-- <el-button :icon="Refresh" v-if="refreshBtn" @click="handleTableRefresh"
+          >刷新</el-button
+        > -->
         <slot name="table-header">
           <!-- <el-button :icon="CirclePlus" class="confirm-button" type="primary">
             新增
@@ -66,11 +68,10 @@
 
 <script setup lang="ts">
   import { defineProps, withDefaults, defineEmits } from "vue";
-  import { Refresh, CirclePlus } from "@element-plus/icons-vue";
 
   import type { IComponentProps } from "./types";
 
-  const emits = defineEmits(["@update:page"]);
+  const emits = defineEmits(["@update:page", "tableRefres"]);
   const props = withDefaults(defineProps<IComponentProps>(), {
     selectionColum: false,
     indexColum: false,

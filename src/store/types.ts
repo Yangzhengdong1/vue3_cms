@@ -11,8 +11,11 @@ export interface ILoginState {
 }
 
 export interface ISystemState {
+  queryInfo: any;
   userList: any[];
   userTotalCount: number | string;
+  goodsList: any[];
+  goodsTotalCount: number | string;
 }
 
 export interface IRootWithModule {

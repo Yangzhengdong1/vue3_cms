@@ -1,12 +1,16 @@
 <template>
   <div class="page-search">
-    <v-form v-bind="searchFormConfig" v-model="formData">
+    <v-form
+      v-bind="searchFormConfig"
+      v-model="formData"
+      @update:modelValue="handleValueChange"
+    >
       <template #footer>
         <div class="search-buttons">
           <el-button
             :icon="Refresh"
             class="reset-button"
-            @click="handleRefreshForm"
+            @click="handleResetForm"
           >
             重置
           </el-button>
@@ -25,17 +29,19 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, defineProps, defineEmits } from "vue";
+  import { ref, defineProps, defineEmits, defineExpose } from "vue";
   import { Refresh, Search } from "@element-plus/icons-vue";
   import VForm from "@/components/v-form";
   import type { IForm } from "@/components/v-form";
+  import { useStore } from "@/store";
 
-  const emit = defineEmits(["refreshForm", "serchConfirm"]);
+  const emit = defineEmits(["resetForm", "serchConfirm"]);
 
   interface IProps {
     searchFormConfig: IForm;
   }
   const props = defineProps<IProps>();
+  const store = useStore();
 
   // 动态获取表单字段
   const originalFormData: any = {};
@@ -43,13 +49,16 @@
     (item) => (originalFormData[item.field] = item.defaultValue)
   );
   const formData = ref(originalFormData);
+  store.commit("system/changeQueryInfo", formData.value);
 
-  const handleRefreshForm = () => {
+  const handleResetForm = () => {
     formData.value = originalFormData;
     const [startTime = "", endTime = ""] = formData.value.dateTime ?? [];
     const queryInfo = { ...formData.value, startTime, endTime } as any;
     delete queryInfo.dateTime;
-    emit("refreshForm", queryInfo);
+    store.commit("system/changeQueryInfo", formData.value);
+
+    emit("resetForm", queryInfo);
   };
 
   const handleSerchConfirm = () => {
@@ -58,6 +67,15 @@
     delete queryInfo.dateTime;
     emit("serchConfirm", queryInfo);
   };
+
+  // 查询参数发生变化时，同步到 veux 中
+  const handleValueChange = (value: any) => {
+    store.commit("system/changeQueryInfo", value);
+  };
+
+  defineExpose({
+    formData
+  });
 </script>
 
 <style scoped lang="less">

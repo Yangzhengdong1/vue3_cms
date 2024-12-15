@@ -16,6 +16,7 @@
                 v-if="item.type === 'input' || item.type === 'password'"
               >
                 <el-input
+                  clearable
                   :placeholder="item.placeholder"
                   :show-password="item.type === 'password'"
                   :model-value="modelValue[item.field]"
@@ -24,6 +25,7 @@
               </template>
               <template v-else-if="item.type === 'select'">
                 <el-select
+                  clearable
                   :placeholder="item.placeholder"
                   :model-value="modelValue[item.field]"
                   @update:model-value="handleValueChange($event, item.field)"
@@ -42,6 +44,7 @@
                   v-bind="item.otherOptions"
                   :model-value="modelValue[item.field]"
                   @update:model-value="handleValueChange($event, item.field)"
+                  clearable
                 >
                 </el-date-picker>
               </template>

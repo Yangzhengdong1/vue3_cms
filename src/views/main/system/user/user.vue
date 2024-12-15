@@ -3,7 +3,7 @@
     <page-search
       :search-form-config="searchFormConfig"
       @serch-confirm="handleQuery"
-      @refresh-form="handleRefresh"
+      @reset-form="handleReset"
     />
     <page-content ref="pageContentRef" :content-config="contentConfig">
       <template #roleName="scope">
@@ -25,7 +25,7 @@
   import { contentConfig, roleLevelMap } from "./table.config";
 
   import { usePageContent } from "@/hooks/use-page-content";
-  const [pageContentRef, handleQuery, handleRefresh] = usePageContent();
+  const [pageContentRef, handleQuery, handleReset] = usePageContent();
 </script>
 
 <style scoped lang="less"></style>

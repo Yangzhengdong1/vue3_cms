@@ -5,6 +5,7 @@ import type { IUserList } from "@/service/types/system";
 export const getPageList = (url: string, params: any) => {
   return axios.post<IListType<IUserList>>({
     url,
-    data: params
+    data: params,
+    isShowLoading: true
   });
 };

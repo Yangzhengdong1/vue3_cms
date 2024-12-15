@@ -10,6 +10,12 @@
     >
       <template #table-header>
         <el-button
+          :icon="Refresh"
+          v-if="contentConfig.otherComponentProps.refreshBtn ?? true"
+          @click="handleTableRefresh"
+          >刷新</el-button
+        >
+        <el-button
           v-cms-permit-directive="[
             {
               event: 'click',
@@ -89,13 +95,21 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps, computed, ref, watch, defineExpose } from "vue";
+  import {
+    defineProps,
+    computed,
+    ref,
+    watch,
+    defineExpose,
+    defineEmits
+  } from "vue";
   import {
     Hide,
     View,
     Edit,
     Delete,
-    CirclePlus
+    CirclePlus,
+    Refresh
   } from "@element-plus/icons-vue";
   import VTable from "@/components/v-table";
 
@@ -104,6 +118,7 @@
 
   import type { IProps } from "./types";
 
+  const emits = defineEmits(["table-refresh"]);
   const props = defineProps<IProps>();
   const store = useStore();
 
@@ -113,16 +128,26 @@
   const isUpdate = usePremission(props.contentConfig.pageName, "update");
   const isQuery = usePremission(props.contentConfig.pageName, "query");
 
+  // 从 Vuex 获取数据
+  const list = computed(() =>
+    store.getters["system/getDataList"](props.contentConfig.pageName)
+  );
+  const total = computed(() =>
+    store.getters["system/getDataCount"](props.contentConfig.pageName)
+  );
+  const queryInfo = computed(() => store.state.system.queryInfo);
+
+  // 监听分页参数变化
   const pageInfo = ref({
     currentPage: 1,
     pageSize: 10,
-    pageName: "user"
+    pageName: props.contentConfig.pageName
   });
 
   watch(
     pageInfo,
     () => {
-      fetchPageList();
+      fetchPageList(queryInfo.value);
     },
     { deep: true }
   );
@@ -138,15 +163,7 @@
       }
     });
   };
-  fetchPageList();
-
-  // 从 Vuex 获取数据
-  const list = computed(() =>
-    store.getters["system/getDataList"](props.contentConfig.pageName)
-  );
-  const total = computed(() =>
-    store.getters["system/getDataCount"](props.contentConfig.pageName)
-  );
+  fetchPageList(queryInfo.value);
 
   // 获取其他动态插槽
   const fixedSlotNames = ["status", "isActive", "handler"];
@@ -164,6 +181,9 @@
   };
   const handleDelete = (item: any) => {
     console.log(item, "delete");
+  };
+  const handleTableRefresh = () => {
+    fetchPageList(queryInfo.value);
   };
   defineExpose({
     fetchPageList

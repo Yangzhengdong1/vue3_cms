@@ -20,7 +20,8 @@ import {
   ElTable,
   ElSwitch,
   ElTag,
-  ElPagination
+  ElPagination,
+  ElImage
 } from "element-plus";
 import {
   Search,
@@ -94,7 +95,8 @@ const components = [
   ElTable.TableColumn,
   ElSwitch,
   ElTag,
-  ElPagination
+  ElPagination,
+  ElImage
 ];
 const concatComponents = [...icons, ...components];
 

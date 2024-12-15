@@ -1,5 +1,6 @@
 import { ref, Ref } from "vue";
 import PageContent from "@/components/page-content";
+import PageSearch from "@/components/page-search";
 
 type UsePageContent = [
   Ref<any, any>,
@@ -9,14 +10,24 @@ type UsePageContent = [
 
 export const usePageContent = () => {
   const pageContentRef = ref<InstanceType<typeof PageContent>>();
+  const pageSearchRef = ref<InstanceType<typeof PageSearch>>();
 
   const handleQuery = (queryInfo: any) => {
     pageContentRef.value?.fetchPageList(queryInfo);
   };
 
-  const handleRefresh = (queryInfo: any) => {
+  const handleReset = (queryInfo: any) => {
     pageContentRef.value?.fetchPageList(queryInfo);
   };
 
-  return [pageContentRef, handleQuery, handleRefresh] as UsePageContent;
+  const handleRefresh = () => {
+    const formData = pageSearchRef.value.formData;
+    const [startTime = "", endTime = ""] = formData.dateTime ?? [];
+    const queryInfo = { ...formData, startTime, endTime } as any;
+    delete queryInfo.dateTime;
+
+    pageContentRef.value?.fetchPageList(queryInfo);
+  };
+
+  return [pageContentRef, handleQuery, handleReset] as UsePageContent;
 };
