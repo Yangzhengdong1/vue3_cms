@@ -48,6 +48,16 @@
                 >
                 </el-date-picker>
               </template>
+              <template v-else-if="item.type === 'cascader'">
+                <el-cascader
+                  v-bind="item.otherOptions"
+                  :model-value="modelValue[item.field]"
+                  :options="item.options"
+                  :show-all-levels="false"
+                  @update:model-value="handleValueChange($event, item.field)"
+                  clearable
+                />
+              </template>
             </el-form-item>
           </el-col>
         </template>

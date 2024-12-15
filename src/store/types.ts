@@ -14,8 +14,12 @@ export interface ISystemState {
   queryInfo: any;
   userList: any[];
   userTotalCount: number | string;
+  roleList: any[];
+  roleTotalCount: number | string;
   goodsList: any[];
   goodsTotalCount: number | string;
+  menuList: any[];
+  menuTotalCount: number | string;
 }
 
 export interface IRootWithModule {

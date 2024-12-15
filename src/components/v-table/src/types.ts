@@ -16,6 +16,7 @@ export interface IComponentProps {
   propList: IProp[];
   selectionColum?: boolean;
   indexColum?: boolean;
+  isFooter?: boolean;
   title?: string;
   refreshBtn?: boolean;
   page: IPageInfo;

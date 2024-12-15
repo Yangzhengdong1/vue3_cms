@@ -12,7 +12,9 @@
 
 <script setup lang="ts">
   import router from "@/router";
-  const handleBack = () => router.replace("/main/welcome");
+  import localCache from "@/utils/local-cache";
+  const lastPath = localCache.getCache("lastPath", "local");
+  const handleBack = () => router.replace(lastPath);
 </script>
 
 <style scoped lang="less">

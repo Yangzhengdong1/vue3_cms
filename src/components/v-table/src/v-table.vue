@@ -50,7 +50,7 @@
         </el-table-column>
       </template>
     </el-table>
-    <div class="v-table-footer">
+    <div class="v-table-footer" v-if="isFooter">
       <slot name="table-footer">
         <el-pagination
           v-model:current-page="page.currentPage"
@@ -75,6 +75,7 @@
   const props = withDefaults(defineProps<IComponentProps>(), {
     selectionColum: false,
     indexColum: false,
+    isFooter: true,
     refreshBtn: true,
     title: "",
     page: () => ({

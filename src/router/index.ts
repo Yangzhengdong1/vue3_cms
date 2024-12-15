@@ -44,8 +44,10 @@ const router = createRouter({
   history: createWebHistory()
 });
 
-router.beforeEach((to) => {
+router.beforeEach((to, from) => {
   const token = localCache.getCache("token", "local");
+  // 记忆跳转的上个 url，方便返回上一步操作
+  localCache.setCache("lastPath", from.path, "local");
   if (!token && to.path !== "/login") {
     return "/login";
   }
