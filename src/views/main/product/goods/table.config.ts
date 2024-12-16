@@ -50,7 +50,8 @@ const propList: IProp[] = [
 
 const tableProps = {
   emptyText: "暂无数据~",
-  height: "420px"
+  height: "490px",
+  maxHeight: "500px"
 };
 
 const otherComponentProps = {

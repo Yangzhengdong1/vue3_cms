@@ -95,14 +95,7 @@
 </template>
 
 <script setup lang="ts">
-  import {
-    defineProps,
-    computed,
-    ref,
-    watch,
-    defineExpose,
-    defineEmits
-  } from "vue";
+  import { defineProps, computed, ref, watch, defineExpose } from "vue";
   import {
     Hide,
     View,
@@ -115,10 +108,10 @@
 
   import { useStore } from "@/store/index";
   import { usePremission } from "@/hooks/use-premission";
+  import { confirmDialog, IType } from "@/utils/message-box";
 
   import type { IProps } from "./types";
 
-  const emits = defineEmits(["table-refresh"]);
   const props = defineProps<IProps>();
   const store = useStore();
 
@@ -179,8 +172,20 @@
   const handleEdit = (item: any) => {
     console.log(item, "edit");
   };
-  const handleDelete = (item: any) => {
-    console.log(item, "delete");
+  const handleDelete = async (item: any) => {
+    try {
+      const options = {
+        title: "删除确认",
+        message: "此操作将永久删除该数据，是否继续？",
+        confirmText: "删除",
+        cancelText: "取消",
+        type: "warning" as IType
+      };
+      await confirmDialog(options);
+      console.log(item, "delete");
+    } catch (error) {
+      console.log("取消删除");
+    }
   };
   const handleTableRefresh = () => {
     fetchPageList(queryInfo.value);

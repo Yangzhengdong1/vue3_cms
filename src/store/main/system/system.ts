@@ -4,6 +4,7 @@ import type { IRootState, ISystemState } from "@/store/types";
 import type { IUserList, IGoodsList, IRoleList } from "@/service/types/system";
 import { getPageList } from "@/service/main/system/system.service";
 import { IUserMenusResult } from "@/service/types/login";
+import message from "@/utils/message";
 
 const pageNameMap: any = {
   user: {
@@ -91,9 +92,14 @@ const systemModule: Module<ISystemState, IRootState> = {
         if (result && result.code === 0) {
           ctx.commit(pageNameMap[pageName].mutationNames[0], result.list);
           ctx.commit(pageNameMap[pageName].mutationNames[1], result.totalCount);
+        } else {
+          message.error(result.message);
+          ctx.commit(pageNameMap[pageName].mutationNames[0], []);
+          ctx.commit(pageNameMap[pageName].mutationNames[1], 0);
         }
-        console.log(result);
+        // console.log(result);
       } catch (error) {
+        message.error("请求列表出错！");
         console.log("请求列表出错！", error);
       }
     }

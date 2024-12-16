@@ -54,5 +54,37 @@ html, body, #app {
   )!important; /* 悬停时更亮一些 */
 }
 
+/* 自定义弹窗整体样式 */
+.my-custom-confirm {
+  width: 300px!important;
+  border-radius: 8px!important; /* 圆角 */
+  box-shadow: 0 4px 10px var(--v-profile-box-shadow)!important; /* 阴影 */
+  overflow: hidden!important; /* 隐藏多余内容 */
+}
+
+
+/* 确认按钮样式 */
+.my-custom-confirm .el-button--primary {
+  background-color: var(--el-color-danger); /* 按钮背景色 */
+  border-color: var(--el-color-danger);
+  color: var(--v-profile-page-bgc)!important; /* 文字颜色 */
+  font-weight: 600;
+}
+
+.my-custom-confirm .el-button--primary:hover {
+  background-color: var(--el-color-danger-hover); /* 悬停时的颜色 */
+  border-color: var(--el-color-danger-hover);
+}
+
+/* 取消按钮样式 */
+.my-custom-confirm .el-button {
+  color: var(--el-text-color-placeholder); /* 取消按钮颜色 */
+}
+
+.my-custom-confirm .el-button:hover {
+  color: var(--el-text-color-secondary);
+}
+
+
 
 

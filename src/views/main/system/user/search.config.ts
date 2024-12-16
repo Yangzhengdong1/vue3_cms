@@ -40,7 +40,7 @@ const formItems: IFormItem[] = [
   },
   {
     field: "status",
-    defaultValue: "",
+    defaultValue: false,
     type: "select",
     label: "状态",
     placeholder: "请选择用户状态",

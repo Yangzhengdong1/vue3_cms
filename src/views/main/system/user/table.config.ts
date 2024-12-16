@@ -47,7 +47,7 @@ const propList: IProp[] = [
   },
   {
     prop: "handler",
-    minWidth: "120",
+    minWidth: "145",
     slotName: "handler",
     label: "操作"
   }
