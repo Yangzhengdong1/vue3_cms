@@ -2,6 +2,26 @@ import type { IFormItem, IForm } from "@/components/v-form";
 
 const formItems: IFormItem[] = [
   {
+    field: "departmentId",
+    defaultValue: "",
+    type: "cascader",
+    label: "所属部门",
+    options: [],
+    otherOptions: {
+      props: {
+        value: "wid",
+        label: "name",
+        children: "childrens",
+        multiple: false,
+        expandTrigger: "hover",
+        checkStrictly: true,
+        emitPath: false
+      },
+      style: { width: "100%" }
+    },
+    placeholder: "请选择角色所属部门"
+  },
+  {
     field: "roleName",
     defaultValue: "",
     type: "input",
@@ -15,14 +35,7 @@ const formItems: IFormItem[] = [
     label: "角色描述",
     placeholder: "请输入角色描述"
   },
-  {
-    field: "departmentName",
-    defaultValue: "",
-    type: "select",
-    label: "所属部门",
-    options: [],
-    placeholder: "请选择角色所属部门"
-  },
+
   {
     field: "level",
     defaultValue: "",

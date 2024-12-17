@@ -26,15 +26,16 @@
               <template v-else-if="item.type === 'select'">
                 <el-select
                   clearable
+                  v-bind="item.otherOptions"
                   :placeholder="item.placeholder"
                   :model-value="modelValue[item.field]"
                   @update:model-value="handleValueChange($event, item.field)"
                 >
                   <el-option
                     v-for="option in item.options"
-                    :key="option.value"
-                    :label="option.label"
-                    :value="option.value"
+                    :key="item.otherOptions ? (option as any )[item.otherOptions.props.value] : option.value"
+                    :label="item.otherOptions ? (option as any )[item.otherOptions.props.label] : option.label"
+                    :value="item.otherOptions ? (option as any )[item.otherOptions.props.value] : option.value"
                   >
                   </el-option>
                 </el-select>
@@ -51,6 +52,7 @@
               <template v-else-if="item.type === 'cascader'">
                 <el-cascader
                   v-bind="item.otherOptions"
+                  :placeholder="item.placeholder"
                   :model-value="modelValue[item.field]"
                   :options="item.options"
                   :show-all-levels="false"

@@ -1,4 +1,4 @@
-type IFormTypes = "input" | "select" | "password" | "datepicker";
+type IFormTypes = "input" | "select" | "password" | "datepicker" | "cascader";
 export interface IOption {
   label: string | number | boolean;
   value: string | number | boolean;

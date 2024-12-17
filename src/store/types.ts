@@ -1,5 +1,8 @@
 export interface IRootState {
   name: string;
+  integrityRole: any[];
+  integrityDepartment: any[];
+  integrityLevel: any[];
 }
 
 export interface ILoginState {
