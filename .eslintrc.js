@@ -20,6 +20,7 @@ module.exports = {
     "@typescript-eslint/no-explicit-any": 0,
     "no-async-promise-executor": 0,
     "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/no-non-null-assertion": 0,
     "vue/script-indent": [
       "error",
       2, // 缩进为 2 个空格

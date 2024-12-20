@@ -2,9 +2,13 @@ import type { Module } from "vuex";
 
 import type { IRootState, ISystemState } from "@/store/types";
 import type { IUserList, IGoodsList, IRoleList } from "@/service/types/system";
-import { getPageList } from "@/service/main/system/system.service";
+import {
+  createPageData,
+  getPageList
+} from "@/service/main/system/system.service";
 import { IUserMenusResult } from "@/service/types/login";
 import message from "@/utils/message";
+import crypto from "@/utils/crypto";
 
 const pageNameMap: any = {
   user: {
@@ -101,6 +105,59 @@ const systemModule: Module<ISystemState, IRootState> = {
       } catch (error) {
         message.error("请求列表出错！");
         console.log("请求列表出错！", error);
+      }
+    },
+
+    async removePageDataAction(state, pageName: string) {
+      console.log("remove");
+    },
+
+    async createPageDataAction(
+      ctx,
+      payload: { pageName: string; params: any }
+    ) {
+      return new Promise(async (resolve) => {
+        const { pageName, params } = payload;
+        if ("password" in params) {
+          params.password = crypto.encrypt(params.password);
+        }
+        const url = `${pageName}/create`;
+        try {
+          const result = await createPageData(url, params);
+          if (result && result.code === 0) {
+            message.success(result.message);
+            ctx.dispatch("getPageListAction", {
+              pageName,
+              queryInfo: ctx.state.queryInfo
+            });
+            resolve("success");
+          } else {
+            message.error(result.message);
+            resolve("fail");
+          }
+        } catch (error) {
+          console.log("创建数据失败！");
+          resolve("fail");
+        }
+      });
+    },
+
+    async editPageDataAction(ctx, payload: { pageName: string; params: any }) {
+      const { pageName, params } = payload;
+      const url = `${pageName}/update`;
+      try {
+        const result = await createPageData(url, params);
+        if (result && result.code === 0) {
+          message.success(result.message);
+          ctx.dispatch("getPageListAction", {
+            pageName,
+            queryInfo: ctx.state.queryInfo
+          });
+        } else {
+          message.error(result.message);
+        }
+      } catch (error) {
+        console.log("更新数据失败！");
       }
     }
   },

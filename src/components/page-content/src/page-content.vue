@@ -55,26 +55,16 @@
 
       <template #handler="scope">
         <el-button
-          v-cms-permit-directive="[
-            {
-              event: 'click',
-              directive: `${contentConfig.pageName}_update`,
-              handler: () => handleEdit(scope.row)
-            }
-          ]"
+          v-if="isUpdate"
+          @click="handleEdit(scope.row)"
           type="primary"
           :icon="Edit"
           link
           >编辑</el-button
         >
         <el-button
-          v-cms-permit-directive="[
-            {
-              event: 'click',
-              directive: `${contentConfig.pageName}_delete`,
-              handler: () => handleDelete(scope.row)
-            }
-          ]"
+          v-if="isDelete"
+          @click="handleDelete"
           type="danger"
           :icon="Delete"
           link
@@ -95,7 +85,14 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps, computed, ref, watch, defineExpose } from "vue";
+  import {
+    defineProps,
+    computed,
+    ref,
+    watch,
+    defineExpose,
+    defineEmits
+  } from "vue";
   import {
     Hide,
     View,
@@ -112,14 +109,15 @@
 
   import type { IProps } from "./types";
 
+  const emit = defineEmits(["addNew", "editInfo"]);
   const props = defineProps<IProps>();
   const store = useStore();
 
   // 判断权限的另一种方式
-  const isCreate = usePremission(props.contentConfig.pageName, "create");
+  // const isCreate = usePremission(props.contentConfig.pageName, "create");
   const isDelete = usePremission(props.contentConfig.pageName, "delete");
   const isUpdate = usePremission(props.contentConfig.pageName, "update");
-  const isQuery = usePremission(props.contentConfig.pageName, "query");
+  // const isQuery = usePremission(props.contentConfig.pageName, "query");
 
   // 从 Vuex 获取数据
   const list = computed(() =>
@@ -167,10 +165,10 @@
 
   // 操作
   const handleAdd = () => {
-    console.log("add");
+    emit("addNew");
   };
   const handleEdit = (item: any) => {
-    console.log(item, "edit");
+    emit("editInfo", item);
   };
   const handleDelete = async (item: any) => {
     try {

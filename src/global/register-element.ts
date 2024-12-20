@@ -22,7 +22,9 @@ import {
   ElTag,
   ElPagination,
   ElImage,
-  ElCascader
+  ElCascader,
+  ElDialog,
+  ElUpload
 } from "element-plus";
 import {
   Search,
@@ -98,7 +100,9 @@ const components = [
   ElTag,
   ElPagination,
   ElImage,
-  ElCascader
+  ElCascader,
+  ElDialog,
+  ElUpload
 ];
 const concatComponents = [...icons, ...components];
 

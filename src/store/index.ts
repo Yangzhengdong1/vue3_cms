@@ -48,6 +48,12 @@ const store = createStore<IRootState>({
       }
     }
   },
+
+  getters: {
+    getIntegrityList(state) {
+      return (listName: string) => (state as any)[`integrity${listName}`];
+    }
+  },
   modules: {
     login,
     system
@@ -59,8 +65,9 @@ export const setupStore = async () => {
   await store.dispatch("login/loadLocalLogin");
   // 这里不会对菜单之类的造成影响，所以可以不必 await
   store.dispatch("getDictTableAction", "ROLES");
-  store.dispatch("getDictTableAction", "DEPT_TREE");
   store.dispatch("getDictTableAction", "LEVELS");
+  // todo：动态修改级联组件绑定的 options ，级联组件没法感知到更新，暂时将这个接口 await
+  await store.dispatch("getDictTableAction", "DEPT_TREE");
 };
 
 // export function useStore(): Store<IStoreType> {

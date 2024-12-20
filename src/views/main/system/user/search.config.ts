@@ -14,7 +14,6 @@ const formItems: IFormItem[] = [
     defaultValue: "",
     type: "cascader",
     label: "所属部门",
-    options: [],
     otherOptions: {
       props: {
         value: "wid",

@@ -2,7 +2,7 @@
   <div class="nav-menu">
     <div class="logo">
       <img src="~@/assets/img/logo.svg" alt="logo" />
-      <span v-show="!collapse" class="title">Vue3 + TS</span>
+      <span v-show="!collapse" class="title">{{ appName }}</span>
     </div>
     <el-menu
       :default-active="activePath"
@@ -90,6 +90,7 @@
 
   const userMenus = computed(() => store.state.login.userMenus);
   const activePath = ref(route.path);
+  const appName = computed(() => process.env.VUE_APP_NAME);
 
   const handleMenuItem = (item: IMenusChildren) =>
     router.push(item.url ?? "not-found");

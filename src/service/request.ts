@@ -77,6 +77,7 @@ export default class Request {
         }
         resolve(result);
       } catch (error) {
+        console.log(error);
         this.showLoading = DEFAULT_LOADING;
         let err = error;
         // 单个接口的响应失败拦截

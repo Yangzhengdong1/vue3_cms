@@ -3,20 +3,27 @@
     <div class="header">
       <slot name="header"></slot>
     </div>
-    <el-form :label-width="labelWidth">
+    <el-form
+      :label-width="labelWidth"
+      ref="formRef"
+      :model="modelValue"
+      :rules="formRules"
+    >
       <el-row>
         <template v-for="item in formItems" :key="item.label">
           <el-col v-bind="colLayout">
             <el-form-item
+              v-if="!item.isHidden"
               :label="item.label"
-              :rules="item.rules"
               :style="labelItemStyle"
+              :prop="item.field"
             >
               <template
                 v-if="item.type === 'input' || item.type === 'password'"
               >
                 <el-input
                   clearable
+                  v-bind="item.otherOptions"
                   :placeholder="item.placeholder"
                   :show-password="item.type === 'password'"
                   :model-value="modelValue[item.field]"
@@ -60,6 +67,12 @@
                   clearable
                 />
               </template>
+              <template v-else-if="item.type === 'upload-img'">
+                <v-upload-img
+                  :model-value="modelValue[item.field]"
+                  @update:model-value="handleValueChange($event, item.field)"
+                />
+              </template>
             </el-form-item>
           </el-col>
         </template>
@@ -72,8 +85,20 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps, defineEmits, PropType } from "vue";
+  import {
+    defineProps,
+    defineEmits,
+    defineExpose,
+    PropType,
+    watch,
+    ref,
+    nextTick
+  } from "vue";
+  import { ElForm } from "element-plus";
+
   import { IFormItem } from "./type";
+  import VUploadImg from "@/components/v-upload";
+  import { getPageList } from "@/service/main/system/system.service";
 
   const emit = defineEmits(["update:modelValue"]);
 
@@ -102,16 +127,69 @@
       })
     },
 
+    formRules: {
+      type: Object,
+      default: () => ({})
+    },
+
     formItems: {
       type: Array as PropType<IFormItem[]>,
       default: () => []
     }
   });
 
+  // 部门与角色是否联动
+  const departmentItem = props.formItems.find(
+    (item) => item.field === "departmentId"
+  );
+  const isRelevance = departmentItem && departmentItem.otherOptions?.relevance;
+
+  watch(
+    () => props.modelValue,
+    async (newValue, oldValue) => {
+      if (newValue?.departmentId && isRelevance) {
+        Object.keys(newValue).forEach(async (key) => {
+          if (
+            oldValue &&
+            newValue[key] !== oldValue[key] &&
+            key === "departmentId"
+          ) {
+            // 请求部门下角色
+            try {
+              const result = await getPageList("/role/get-list", {
+                departmentId: newValue?.departmentId
+              });
+              const roleItem = props.formItems.find(
+                (item) => item.field === "roleId"
+              );
+              if (result && result.code === 0) {
+                (roleItem!.options as any) = result.list;
+              }
+            } catch (error) {
+              console.log(error, "请求部门下角色出错");
+            }
+          }
+        });
+      }
+    },
+    {
+      immediate: true,
+      deep: true
+    }
+  );
+
   const handleValueChange = (value: any, field: string) => {
+    console.log("v-form:update:modelValue", field);
     // 在发送这个事件时，父组件会直接修改元数据，不必再在父组件显式监听 update:modelValue
     emit("update:modelValue", { ...props.modelValue, [field]: value });
   };
+
+  // 表单校验
+
+  const formRef = ref<InstanceType<typeof ElForm>>();
+  defineExpose({
+    formRef
+  });
 </script>
 
 <style scoped lang="less">

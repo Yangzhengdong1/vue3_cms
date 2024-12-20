@@ -1,4 +1,10 @@
-type IFormTypes = "input" | "select" | "password" | "datepicker" | "cascader";
+type IFormTypes =
+  | "input"
+  | "select"
+  | "password"
+  | "datepicker"
+  | "cascader"
+  | "upload-img";
 export interface IOption {
   label: string | number | boolean;
   value: string | number | boolean;
@@ -13,6 +19,7 @@ export interface IFormItem {
   placeholder?: string;
   options?: IOption[];
   otherOptions?: any;
+  isHidden?: boolean;
 }
 
 export interface IForm {
@@ -20,4 +27,5 @@ export interface IForm {
   labelItemStyle?: any;
   colLayout?: any;
   formItems: IFormItem[];
+  formRules?: any;
 }
