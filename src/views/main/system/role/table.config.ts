@@ -53,6 +53,7 @@ const tableProps = {
 };
 
 const otherComponentProps = {
+  expandColum: true,
   selectionColum: true,
   indexColum: true,
   title: "角色列表"

@@ -6,6 +6,9 @@
       :search-form-config="searchFormConfigRef"
     />
     <page-content ref="pageContentRef" :content-config="contentConfig">
+      <template #expand="scope">
+        {{ scope.row.wid }}
+      </template>
       <template #level="scope">
         <el-tag
           v-if="scope.row.level"

@@ -36,6 +36,9 @@
           新增
         </el-button>
       </template>
+      <template #expand="scope">
+        <slot name="expand" :row="scope.row"></slot>
+      </template>
       <template #isActive="scope">
         <el-switch
           v-model="scope.row.isActive"

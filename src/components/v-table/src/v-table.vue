@@ -21,6 +21,18 @@
       v-bind="tableProps"
     >
       <el-table-column
+        v-if="expandColum"
+        type="expand"
+        width="55"
+        align="center"
+      >
+        <template #default="scope">
+          <slot name="expand" :row="scope.row">
+            {{ scope.row }}
+          </slot>
+        </template>
+      </el-table-column>
+      <el-table-column
         v-if="selectionColum"
         type="selection"
         width="55"
@@ -73,6 +85,7 @@
 
   const emits = defineEmits(["@update:page", "tableRefres"]);
   const props = withDefaults(defineProps<IComponentProps>(), {
+    expandColum: false,
     selectionColum: false,
     indexColum: false,
     isFooter: true,
