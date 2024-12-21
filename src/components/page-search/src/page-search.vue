@@ -8,17 +8,29 @@
       <template #footer>
         <div class="search-buttons">
           <el-button
+            v-cms-permit-directive="[
+              {
+                event: 'click',
+                directive: `${pageName}_create`,
+                handler: () => handleResetForm()
+              }
+            ]"
             :icon="Refresh"
             class="reset-button"
-            @click="handleResetForm"
           >
             重置
           </el-button>
           <el-button
+            v-cms-permit-directive="[
+              {
+                event: 'click',
+                directive: `${pageName}_create`,
+                handler: () => handleSerchConfirm()
+              }
+            ]"
             :icon="Search"
             class="confirm-button"
             type="primary"
-            @click="handleSerchConfirm"
           >
             确认
           </el-button>
@@ -39,6 +51,7 @@
 
   interface IProps {
     searchFormConfig: IForm;
+    pageName: string;
   }
   const props = defineProps<IProps>();
   const store = useStore();

@@ -1,6 +1,7 @@
 <template>
   <div class="role">
     <page-search
+      page-name="role"
       @serch-confirm="handleQuery"
       :search-form-config="searchFormConfigRef"
     />

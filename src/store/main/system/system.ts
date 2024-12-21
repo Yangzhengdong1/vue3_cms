@@ -111,17 +111,17 @@ const systemModule: Module<ISystemState, IRootState> = {
 
     async removePageDataAction(
       ctx,
-      payload: { pageName: string; wid: string }
+      payload: { pageName: string; wid: string; queryInfo: any }
     ) {
       try {
-        const { pageName, wid } = payload;
+        const { pageName, wid, queryInfo } = payload;
         const url = `${pageName}/delete`;
         const result = await removePageData(url, wid);
         if (result && result.code === 0) {
           message.success(result.message);
           ctx.dispatch("getPageListAction", {
             pageName,
-            queryInfo: ctx.state.queryInfo
+            queryInfo: queryInfo ? queryInfo : ctx.state.queryInfo
           });
         } else {
           message.error(result.message);

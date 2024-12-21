@@ -1,6 +1,7 @@
 <template>
   <div class="user">
     <page-search
+      page-name="user"
       :search-form-config="searchFormConfigRef"
       @serch-confirm="handleQuery"
       @reset-form="handleReset"

@@ -10,9 +10,15 @@
     >
       <template #table-header>
         <el-button
+          v-cms-permit-directive="[
+            {
+              event: 'click',
+              directive: `${contentConfig.pageName}_query`,
+              handler: () => handleTableRefresh()
+            }
+          ]"
           :icon="Refresh"
           v-if="contentConfig.otherComponentProps.refreshBtn ?? true"
-          @click="handleTableRefresh"
           >刷新</el-button
         >
         <el-button
@@ -93,8 +99,7 @@
     ref,
     watch,
     defineExpose,
-    defineEmits,
-    toRef
+    defineEmits
   } from "vue";
   import {
     Hide,
@@ -207,7 +212,12 @@
       await confirmDialog(options);
       store.dispatch("system/removePageDataAction", {
         pageName: pageName,
-        wid: item.wid
+        wid: item.wid,
+        queryInfo: {
+          pageNum: pageInfo.value.currentPage,
+          pageSize: pageInfo.value.pageSize,
+          ...queryInfo.value
+        }
       });
     } catch (error) {
       console.log("取消删除");

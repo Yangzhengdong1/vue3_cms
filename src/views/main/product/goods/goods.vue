@@ -1,6 +1,7 @@
 <template>
   <div class="goods">
     <page-search
+      page-name="goods"
       :searchFormConfig="searchFormConfig"
       @serch-confirm="handleQuery"
     />
