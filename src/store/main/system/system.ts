@@ -147,7 +147,7 @@ const systemModule: Module<ISystemState, IRootState> = {
             message.success(result.message);
             ctx.dispatch("getPageListAction", {
               pageName,
-              queryInfo: ctx.state.queryInfo
+              queryInfo: { ...ctx.state.queryInfo, pageSize: 10, pageNum: 1 }
             });
             resolve("success");
           } else {
@@ -171,7 +171,7 @@ const systemModule: Module<ISystemState, IRootState> = {
             message.success(result.message);
             ctx.dispatch("getPageListAction", {
               pageName,
-              queryInfo: ctx.state.queryInfo
+              queryInfo: { ...ctx.state.queryInfo, pageSize: 10, pageNum: 1 }
             });
             resolve("success");
           } else {

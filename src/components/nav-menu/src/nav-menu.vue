@@ -1,6 +1,6 @@
 <template>
   <div class="nav-menu">
-    <div class="logo">
+    <div class="logo" @click="handleLogoClick">
       <img src="~@/assets/img/logo.svg" alt="logo" />
       <span v-show="!collapse" class="title">{{ appName }}</span>
     </div>
@@ -74,7 +74,8 @@
   });
 
   const menuTheme1 = {
-    "active-text-color": "#4caf50 ",
+    // "active-text-color": "#4caf50 ",
+    "active-text-color": "var(--el-color-primary)",
     "background-color": "#001529",
     "text-color": "#ccd1d9 "
   };
@@ -94,6 +95,11 @@
 
   const handleMenuItem = (item: IMenusChildren) =>
     router.push(item.url ?? "not-found");
+
+  const handleLogoClick = () => {
+    router.push("/main/welcome");
+    activePath.value = "/main/welcome";
+  };
 </script>
 
 <style scoped lang="less">

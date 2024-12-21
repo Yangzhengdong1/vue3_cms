@@ -9,7 +9,8 @@ import message from "@/utils/message";
 const tableNameMap: any = {
   DEPT_TREE: "changeIntegrityDepartment",
   ROLES: "changeIntegrityRole",
-  LEVELS: "changeIntegrityLevel"
+  LEVELS: "changeIntegrityLevel",
+  PERMS: "changeIntegrityPermission"
 };
 
 const store = createStore<IRootState>({
@@ -18,7 +19,8 @@ const store = createStore<IRootState>({
       name: "张三",
       integrityRole: [],
       integrityDepartment: [],
-      integrityLevel: []
+      integrityLevel: [],
+      integrityPermission: []
     };
   },
 
@@ -31,6 +33,9 @@ const store = createStore<IRootState>({
     },
     changeIntegrityLevel(state, list: []) {
       state.integrityLevel = list;
+    },
+    changeIntegrityPermission(state, list: []) {
+      state.integrityPermission = list;
     }
   },
 
@@ -66,6 +71,7 @@ export const setupStore = async () => {
   // 这里不会对菜单之类的造成影响，所以可以不必 await
   store.dispatch("getDictTableAction", "ROLES");
   store.dispatch("getDictTableAction", "LEVELS");
+  store.dispatch("getDictTableAction", "PERMS");
   // todo：动态修改级联组件绑定的 options ，级联组件没法感知到更新，暂时将这个接口 await
   await store.dispatch("getDictTableAction", "DEPT_TREE");
 };

@@ -38,13 +38,27 @@
                   :model-value="modelValue[item.field]"
                   @update:model-value="handleValueChange($event, item.field)"
                 >
-                  <el-option
-                    v-for="option in item.options"
-                    :key="item.otherOptions ? (option as any )[item.otherOptions.props.value] : option.value"
-                    :label="item.otherOptions ? (option as any )[item.otherOptions.props.label] : option.label"
-                    :value="item.otherOptions ? (option as any )[item.otherOptions.props.value] : option.value"
+                  <!-- 绑定值为对象 -->
+                  <template
+                    v-if="item.otherOptions && item.otherOptions.valueKey"
                   >
-                  </el-option>
+                    <el-option
+                      v-for="option in item.options"
+                      :key="item.otherOptions ? (option as any )[item.otherOptions.props.value] : option.value"
+                      :label="item.otherOptions ? (option as any )[item.otherOptions.props.label] : option.label"
+                      :value="option"
+                    >
+                    </el-option>
+                  </template>
+                  <template v-else>
+                    <el-option
+                      v-for="option in item.options"
+                      :key="item.otherOptions ? (option as any )[item.otherOptions.props.value] : option.value"
+                      :label="item.otherOptions ? (option as any )[item.otherOptions.props.label] : option.label"
+                      :value="item.otherOptions ? (option as any )[item.otherOptions.props.value] : option.value"
+                    >
+                    </el-option>
+                  </template>
                 </el-select>
               </template>
               <template v-else-if="item.type === 'datepicker'">

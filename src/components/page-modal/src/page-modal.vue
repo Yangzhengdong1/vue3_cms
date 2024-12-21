@@ -66,6 +66,7 @@
         message.warning("请按提示要求填写内容");
         return;
       }
+
       // 创建 or 编辑
       const actionName = !Object.keys(props.defaultInfo).length
         ? "system/createPageDataAction"
@@ -87,4 +88,55 @@
   });
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+  ::v-deep .custom-dialog {
+    /* 设置整体样式 */
+    .el-dialog {
+      border-radius: 8px; /* 圆角 */
+      box-shadow: 0 10px 30px var(--v-box-shadow-color-15); /* 柔和阴影 */
+      border: 1px solid var(--el-border-color-light); /* 边框颜色 */
+    }
+
+    /* 标题样式 */
+    .el-dialog__header {
+      font-size: 18px;
+      font-weight: 600; /* 加粗标题 */
+      color: var(--el-text-color-primary); /* 标题颜色 */
+      text-align: center; /* 居中对齐 */
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--el-border-color-light); /* 底部分割线 */
+    }
+
+    /* 内容样式 */
+    .dialog-content {
+      max-height: 450px;
+      overflow: auto;
+      font-size: 14px;
+      color: var(--el-text-color-secondary); /* 默认文本颜色 */
+      line-height: 1.5;
+    }
+
+    /* 底部按钮区域 */
+    .dialog-footer {
+      display: flex;
+      justify-content: flex-end; /* 按钮靠右对齐 */
+      padding: 15px 16px;
+    }
+
+    /* 按钮样式 */
+    .dialog-footer .el-button {
+      margin-left: 10px;
+    }
+
+    /* 关闭按钮 */
+    .el-dialog__close {
+      color: #909399; /* 默认颜色 */
+      font-size: 16px;
+      top: 10px; /* 调整位置 */
+      right: 10px;
+      &:hover {
+        color: var(--el-color-danger); /* 悬停颜色 */
+      }
+    }
+  }
+</style>

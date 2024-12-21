@@ -3,6 +3,7 @@ export interface IRootState {
   integrityRole: any[];
   integrityDepartment: any[];
   integrityLevel: any[];
+  integrityPermission: any[];
 }
 
 export interface ILoginState {

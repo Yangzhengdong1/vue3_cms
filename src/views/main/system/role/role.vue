@@ -5,7 +5,12 @@
       @serch-confirm="handleQuery"
       :search-form-config="searchFormConfigRef"
     />
-    <page-content ref="pageContentRef" :content-config="contentConfig">
+    <page-content
+      ref="pageContentRef"
+      :content-config="contentConfig"
+      @add-new="handleAddData"
+      @edit-info="handleEditData"
+    >
       <template #expand="scope">
         <div class="permission-box">
           <template v-for="item in modules" :key="item.id">
@@ -29,23 +34,38 @@
         </el-tag>
       </template>
     </page-content>
+    <page-modal
+      ref="pageModalRef"
+      page-name="role"
+      :modal-form-config="modalFormConfigRef"
+      :default-info="defaultInfo"
+      :dialog-title="defaultInfo.wid ? '编辑角色' : '新增角色'"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
   import { computed } from "vue";
+  import { useStore } from "@/store";
+
   import { usePageContent } from "@/hooks/use-page-content";
-  import { useFormOptions } from "@/hooks/use-form-options";
+  import { usePageModal } from "@/hooks/use-page-modal";
 
   import PageContent from "@/components/page-content";
   import PageSearch from "@/components/page-search";
+  import PageModal from "@/components/page-modal";
+
   import { searchFormConfig, modules } from "./search.config";
   import { contentConfig, levelNameMap } from "./table.config";
   import { roleLevelMap } from "@/views/main/system/user/table.config";
+  import { modalFormConfig } from "./modal.config";
 
   const [pageContentRef, handleQuery] = usePageContent();
-  const [, departmentOptions, levelOptions] = useFormOptions();
+  const [pageModalRef, defaultInfo, handleAddData, handleEditData] =
+    usePageModal();
+  const store = useStore();
 
+  // 动态添加筛选表单options
   const searchFormConfigRef = computed(() => {
     const levelItem = searchFormConfig.formItems.find(
       (item) => item.field === "level"
@@ -54,10 +74,29 @@
       (item) => item.field === "departmentId"
     );
 
-    levelItem!.options = levelOptions;
-    departmentItem!.options = departmentOptions;
+    levelItem!.options = store.state.integrityLevel;
+    departmentItem!.options = store.state.integrityDepartment;
 
     return searchFormConfig;
+  });
+
+  // 动态添加新增/编辑表单options
+  const modalFormConfigRef = computed(() => {
+    const levelItem = modalFormConfig.formItems.find(
+      (item) => item.field === "level"
+    );
+    const departmentItem = modalFormConfig.formItems.find(
+      (item) => item.field === "departmentId"
+    );
+    const permissionItem = modalFormConfig.formItems.find(
+      (item) => item.field === "permissions"
+    );
+
+    levelItem!.options = store.state.integrityLevel;
+    departmentItem!.options = store.state.integrityDepartment;
+    permissionItem!.options = store.state.integrityPermission;
+
+    return modalFormConfig;
   });
 
   // 处理角色权限展示
