@@ -7,7 +7,18 @@
     />
     <page-content ref="pageContentRef" :content-config="contentConfig">
       <template #expand="scope">
-        {{ scope.row.wid }}
+        <div class="permission-box">
+          <template v-for="item in modules" :key="item.id">
+            <div>
+              <span>{{ item.name }}模块：</span>
+              <span>{{
+                filterRolePermission(scope.row.permissions, item.id)
+                  ? filterRolePermission(scope.row.permissions, item.id)
+                  : "暂无权限~"
+              }}</span>
+            </div>
+          </template>
+        </div>
       </template>
       <template #level="scope">
         <el-tag
@@ -28,7 +39,7 @@
 
   import PageContent from "@/components/page-content";
   import PageSearch from "@/components/page-search";
-  import { searchFormConfig } from "./search.config";
+  import { searchFormConfig, modules } from "./search.config";
   import { contentConfig, levelNameMap } from "./table.config";
   import { roleLevelMap } from "@/views/main/system/user/table.config";
 
@@ -48,6 +59,26 @@
 
     return searchFormConfig;
   });
+
+  // 处理角色权限展示
+  const filterRolePermission = (permissions: any[], moduleName = "user") => {
+    const permissionArr = permissions.map((permission: any) => {
+      permission.groupName = permission.name.split("_")[0];
+      return permission;
+    });
+    const permissionNames: string[] = [];
+    permissionArr.forEach(
+      (item) => item.groupName === moduleName && permissionNames.push(item.name)
+    );
+
+    return permissionNames.join("、");
+  };
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+  .permission-box {
+    > div {
+      padding: 15px;
+    }
+  }
+</style>

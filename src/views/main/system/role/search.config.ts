@@ -73,3 +73,26 @@ export const searchFormConfig: IForm = {
   labelWidth,
   colLayout
 };
+
+export const modules = [
+  {
+    name: "用户",
+    id: "user"
+  },
+  {
+    name: "部门",
+    id: "department"
+  },
+  {
+    name: "菜单",
+    id: "menu"
+  },
+  {
+    name: "角色",
+    id: "role"
+  },
+  {
+    name: "权限",
+    id: "permission"
+  }
+];

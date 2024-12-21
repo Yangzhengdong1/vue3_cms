@@ -91,8 +91,7 @@
     defineExpose,
     PropType,
     watch,
-    ref,
-    nextTick
+    ref
   } from "vue";
   import { ElForm } from "element-plus";
 
@@ -179,7 +178,7 @@
   );
 
   const handleValueChange = (value: any, field: string) => {
-    console.log("v-form:update:modelValue", field);
+    // console.log("v-form:update:modelValue", field);
     // 在发送这个事件时，父组件会直接修改元数据，不必再在父组件显式监听 update:modelValue
     emit("update:modelValue", { ...props.modelValue, [field]: value });
   };
