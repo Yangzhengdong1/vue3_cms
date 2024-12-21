@@ -8,6 +8,7 @@ const formItems: IFormItem[] = [
     label: "所属部门",
     options: [],
     otherOptions: {
+      filterable: true,
       props: {
         value: "wid",
         label: "name",

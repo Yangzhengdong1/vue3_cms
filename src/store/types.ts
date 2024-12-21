@@ -4,6 +4,7 @@ export interface IRootState {
   integrityDepartment: any[];
   integrityLevel: any[];
   integrityPermission: any[];
+  integrityMenu: any[];
 }
 
 export interface ILoginState {

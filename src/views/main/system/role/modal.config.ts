@@ -15,6 +15,7 @@ const formItems: IFormItem[] = [
     label: "所属部门",
     options: [],
     otherOptions: {
+      filterable: true,
       relevance: false, // 是否需要根据部门请求角色列表
       props: {
         value: "wid",
@@ -51,6 +52,7 @@ const formItems: IFormItem[] = [
     options: [],
     label: "角色权限",
     otherOptions: {
+      filterable: true,
       multiple: true,
       collapseTags: true,
       collapseTagsTooltip: true,

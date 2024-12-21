@@ -10,7 +10,8 @@ const tableNameMap: any = {
   DEPT_TREE: "changeIntegrityDepartment",
   ROLES: "changeIntegrityRole",
   LEVELS: "changeIntegrityLevel",
-  PERMS: "changeIntegrityPermission"
+  PERMS: "changeIntegrityPermission",
+  MENU_TREE: "changeIntegrityMenu"
 };
 
 const store = createStore<IRootState>({
@@ -20,7 +21,8 @@ const store = createStore<IRootState>({
       integrityRole: [],
       integrityDepartment: [],
       integrityLevel: [],
-      integrityPermission: []
+      integrityPermission: [],
+      integrityMenu: []
     };
   },
 
@@ -36,6 +38,9 @@ const store = createStore<IRootState>({
     },
     changeIntegrityPermission(state, list: []) {
       state.integrityPermission = list;
+    },
+    changeIntegrityMenu(state, list: []) {
+      state.integrityMenu = list;
     }
   },
 
@@ -72,6 +77,7 @@ export const setupStore = async () => {
   store.dispatch("getDictTableAction", "ROLES");
   store.dispatch("getDictTableAction", "LEVELS");
   store.dispatch("getDictTableAction", "PERMS");
+  store.dispatch("getDictTableAction", "MENU_TREE");
   // todo：动态修改级联组件绑定的 options ，级联组件没法感知到更新，暂时将这个接口 await
   await store.dispatch("getDictTableAction", "DEPT_TREE");
 };

@@ -15,6 +15,7 @@ const formItems: IFormItem[] = [
     type: "cascader",
     label: "所属部门",
     otherOptions: {
+      filterable: true,
       props: {
         value: "wid",
         label: "name",
@@ -35,6 +36,7 @@ const formItems: IFormItem[] = [
     options: [],
     label: "用户角色",
     otherOptions: {
+      filterable: true,
       props: {
         value: "wid",
         label: "name"
