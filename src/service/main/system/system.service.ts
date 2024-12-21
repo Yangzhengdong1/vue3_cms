@@ -43,6 +43,12 @@ export const createPageData = (url: string, params: any) => {
   });
 };
 
+export const removePageData = (url: string, id: string) => {
+  return axios.delete<IDataType<any>>({
+    url: `${url}/${id}`
+  });
+};
+
 export const editPageData = (url: string, params: any) => {
   return axios.post<IDataType<any>>({
     url,

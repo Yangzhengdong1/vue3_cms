@@ -39,6 +39,7 @@
           "
           :active-action-icon="View"
           :inactive-action-icon="Hide"
+          @change="handleSwitchChange(scope.row)"
         />
       </template>
       <template #status="scope">
@@ -50,6 +51,7 @@
           "
           :active-action-icon="View"
           :inactive-action-icon="Hide"
+          @change="handleSwitchChange(scope.row)"
         />
       </template>
 
@@ -64,7 +66,7 @@
         >
         <el-button
           v-if="isDelete"
-          @click="handleDelete"
+          @click="handleDelete(scope.row)"
           type="danger"
           :icon="Delete"
           link
@@ -91,7 +93,8 @@
     ref,
     watch,
     defineExpose,
-    defineEmits
+    defineEmits,
+    toRef
   } from "vue";
   import {
     Hide,
@@ -111,28 +114,25 @@
 
   const emit = defineEmits(["addNew", "editInfo"]);
   const props = defineProps<IProps>();
+  const pageName = props.contentConfig.pageName as string;
   const store = useStore();
 
   // 判断权限的另一种方式
-  // const isCreate = usePremission(props.contentConfig.pageName, "create");
-  const isDelete = usePremission(props.contentConfig.pageName, "delete");
-  const isUpdate = usePremission(props.contentConfig.pageName, "update");
-  // const isQuery = usePremission(props.contentConfig.pageName, "query");
+  // const isCreate = usePremission(pageName, "create");
+  const isDelete = usePremission(pageName, "delete");
+  const isUpdate = usePremission(pageName, "update");
+  // const isQuery = usePremission(pageName, "query");
 
   // 从 Vuex 获取数据
-  const list = computed(() =>
-    store.getters["system/getDataList"](props.contentConfig.pageName)
-  );
-  const total = computed(() =>
-    store.getters["system/getDataCount"](props.contentConfig.pageName)
-  );
+  const list = computed(() => store.getters["system/getDataList"](pageName));
+  const total = computed(() => store.getters["system/getDataCount"](pageName));
   const queryInfo = computed(() => store.state.system.queryInfo);
 
   // 监听分页参数变化
   const pageInfo = ref({
     currentPage: 1,
     pageSize: 10,
-    pageName: props.contentConfig.pageName
+    pageName: pageName
   });
 
   watch(
@@ -146,7 +146,7 @@
   // 发送请求
   const fetchPageList = (queryInfo?: any) => {
     store.dispatch("system/getPageListAction", {
-      pageName: props.contentConfig.pageName,
+      pageName: pageName,
       queryInfo: {
         pageNum: pageInfo.value.currentPage,
         pageSize: pageInfo.value.pageSize,
@@ -170,6 +170,31 @@
   const handleEdit = (item: any) => {
     emit("editInfo", item);
   };
+  const handleSwitchChange = (item: any) => {
+    const {
+      avatarUrl,
+      departmentId,
+      isActive,
+      phone,
+      realname,
+      roleId,
+      username,
+      wid
+    } = item;
+    store.dispatch("system/editPageDataAction", {
+      pageName,
+      params: {
+        avatarUrl,
+        departmentId,
+        isActive,
+        phone,
+        realname,
+        roleId,
+        username,
+        wid
+      }
+    });
+  };
   const handleDelete = async (item: any) => {
     try {
       const options = {
@@ -180,7 +205,10 @@
         type: "warning" as IType
       };
       await confirmDialog(options);
-      console.log(item, "delete");
+      store.dispatch("system/removePageDataAction", {
+        pageName: pageName,
+        wid: item.wid
+      });
     } catch (error) {
       console.log("取消删除");
     }

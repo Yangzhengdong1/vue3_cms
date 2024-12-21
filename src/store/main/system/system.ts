@@ -4,7 +4,8 @@ import type { IRootState, ISystemState } from "@/store/types";
 import type { IUserList, IGoodsList, IRoleList } from "@/service/types/system";
 import {
   createPageData,
-  getPageList
+  getPageList,
+  removePageData
 } from "@/service/main/system/system.service";
 import { IUserMenusResult } from "@/service/types/login";
 import message from "@/utils/message";
@@ -108,8 +109,26 @@ const systemModule: Module<ISystemState, IRootState> = {
       }
     },
 
-    async removePageDataAction(state, pageName: string) {
-      console.log("remove");
+    async removePageDataAction(
+      ctx,
+      payload: { pageName: string; wid: string }
+    ) {
+      try {
+        const { pageName, wid } = payload;
+        const url = `${pageName}/delete`;
+        const result = await removePageData(url, wid);
+        if (result && result.code === 0) {
+          message.success(result.message);
+          ctx.dispatch("getPageListAction", {
+            pageName,
+            queryInfo: ctx.state.queryInfo
+          });
+        } else {
+          message.error(result.message);
+        }
+      } catch (error) {
+        console.log(error, "删除数据失败！");
+      }
     },
 
     async createPageDataAction(
@@ -143,22 +162,27 @@ const systemModule: Module<ISystemState, IRootState> = {
     },
 
     async editPageDataAction(ctx, payload: { pageName: string; params: any }) {
-      const { pageName, params } = payload;
-      const url = `${pageName}/update`;
-      try {
-        const result = await createPageData(url, params);
-        if (result && result.code === 0) {
-          message.success(result.message);
-          ctx.dispatch("getPageListAction", {
-            pageName,
-            queryInfo: ctx.state.queryInfo
-          });
-        } else {
-          message.error(result.message);
+      return new Promise(async (resolve) => {
+        const { pageName, params } = payload;
+        const url = `${pageName}/update`;
+        try {
+          const result = await createPageData(url, params);
+          if (result && result.code === 0) {
+            message.success(result.message);
+            ctx.dispatch("getPageListAction", {
+              pageName,
+              queryInfo: ctx.state.queryInfo
+            });
+            resolve("success");
+          } else {
+            message.error(result.message);
+            resolve("fail");
+          }
+        } catch (error) {
+          console.log("更新数据失败！");
+          resolve("fail");
         }
-      } catch (error) {
-        console.log("更新数据失败！");
-      }
+      });
     }
   },
 
