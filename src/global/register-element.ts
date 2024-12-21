@@ -43,7 +43,8 @@ import {
   ChatLineSquare,
   Sunny,
   Moon,
-  Back
+  Back,
+  Odometer
 } from "@element-plus/icons-vue";
 
 const icons = [
@@ -63,7 +64,8 @@ const icons = [
   ChatLineSquare,
   Sunny,
   Moon,
-  Back
+  Back,
+  Odometer
 ];
 const components = [
   ElButton,
