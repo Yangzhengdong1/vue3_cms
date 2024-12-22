@@ -90,6 +90,12 @@ const loginModule: Module<ILoginState, IRootState> = {
       // 获取用户所属部门菜单
       ctx.dispatch("getUserMenusAction");
 
+      // 获取用户权限列表
+      ctx.dispatch("getUserPermsAction");
+
+      // 获取各类字典表
+      ctx.dispatch("getAllDicTableAction", null, { root: true });
+
       // 将当前路由缓存，跳转时取出来
       router.replace("/main");
 

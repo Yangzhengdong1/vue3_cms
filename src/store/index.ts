@@ -5,6 +5,7 @@ import login from "@/store/login/login";
 import system from "@/store/main/system/system";
 import { getDictTable } from "@/service/main/system/system.service";
 import message from "@/utils/message";
+import localCache from "@/utils/local-cache";
 
 const tableNameMap: any = {
   DEPT_TREE: "changeIntegrityDepartment",
@@ -56,6 +57,19 @@ const store = createStore<IRootState>({
       } catch (error) {
         console.log(error, "请求字典表出错！");
       }
+    },
+
+    async getAllDicTableAction() {
+      const token = localCache.getCache("token", "local");
+      if (token) {
+        // 这里不会对菜单之类的造成影响，所以可以不必 await
+        store.dispatch("getDictTableAction", "ROLES");
+        store.dispatch("getDictTableAction", "LEVELS");
+        store.dispatch("getDictTableAction", "PERMS");
+        store.dispatch("getDictTableAction", "MENU_TREE");
+        // todo：动态修改级联组件绑定的 options ，级联组件没法感知到更新，暂时将这个接口 await
+        await store.dispatch("getDictTableAction", "DEPT_TREE");
+      }
     }
   },
 
@@ -73,13 +87,8 @@ const store = createStore<IRootState>({
 export const setupStore = async () => {
   console.log("loadLocalLogin");
   await store.dispatch("login/loadLocalLogin");
-  // 这里不会对菜单之类的造成影响，所以可以不必 await
-  store.dispatch("getDictTableAction", "ROLES");
-  store.dispatch("getDictTableAction", "LEVELS");
-  store.dispatch("getDictTableAction", "PERMS");
-  store.dispatch("getDictTableAction", "MENU_TREE");
-  // todo：动态修改级联组件绑定的 options ，级联组件没法感知到更新，暂时将这个接口 await
-  await store.dispatch("getDictTableAction", "DEPT_TREE");
+
+  await store.dispatch("getAllDicTableAction");
 };
 
 // export function useStore(): Store<IStoreType> {
