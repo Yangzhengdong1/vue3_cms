@@ -27,6 +27,8 @@ export interface ISystemState {
   menuTotalCount: number | string;
   departmentList: any[];
   departmentTotalCount: number | string;
+  permissionList: any[];
+  permissionTotalCount: number | string;
 }
 
 export interface IRootWithModule {

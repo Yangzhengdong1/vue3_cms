@@ -27,16 +27,26 @@
             <div class="department-menus">
               <span>菜单</span>
               <el-table :data="scope.row.menus" border>
-                <el-table-column min-width="160" label="菜单id" prop="wid" />
-                <el-table-column label="菜单名称" prop="name" />
+                <el-table-column
+                  align="center"
+                  min-width="160"
+                  label="菜单id"
+                  prop="wid"
+                />
+                <el-table-column align="center" label="菜单名称" prop="name" />
               </el-table>
             </div>
             <!-- 人员 -->
             <div class="department-users">
               <span>成员</span>
-              <el-table :data="scope.row.users" border>
-                <el-table-column min-width="160" label="用户id" prop="wid" />
-                <el-table-column label="成员姓名" prop="name" />
+              <el-table :data="scope.row.users" border align="center">
+                <el-table-column
+                  align="center"
+                  min-width="160"
+                  label="用户id"
+                  prop="wid"
+                />
+                <el-table-column align="center" label="成员姓名" prop="name" />
               </el-table>
             </div>
           </div>

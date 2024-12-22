@@ -28,6 +28,10 @@ const pageNameMap: any = {
     fetchUrl: "/menu/get-menu-tree",
     mutationNames: ["changeMenuList", "changeMenuTotal"]
   },
+  permission: {
+    fetchUrl: "/permission/get-list",
+    mutationNames: ["changePermissionList", "changePermissionTotal"]
+  },
   goods: {
     fetchUrl: "/goods/get-list",
     mutationNames: ["changeGoodsList", "changeGoodsTotal"]
@@ -48,7 +52,9 @@ const systemModule: Module<ISystemState, IRootState> = {
       goodsList: [],
       goodsTotalCount: 0,
       departmentList: [],
-      departmentTotalCount: 0
+      departmentTotalCount: 0,
+      permissionList: [],
+      permissionTotalCount: 0
     };
   },
 
@@ -82,6 +88,12 @@ const systemModule: Module<ISystemState, IRootState> = {
     },
     changeMenuTotal(state, total) {
       state.menuTotalCount = total ?? 0;
+    },
+    changePermissionList(state, list) {
+      state.permissionList = list;
+    },
+    changePermissionTotal(state, total) {
+      state.permissionTotalCount = total;
     },
     changeGoodsList(state, list: IGoodsList) {
       state.goodsList = list;

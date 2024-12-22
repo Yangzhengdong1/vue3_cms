@@ -11,7 +11,7 @@
             <el-icon><SwitchButton /></el-icon>
             <span>退出</span>
           </el-dropdown-item>
-          <el-dropdown-item>
+          <el-dropdown-item disabled>
             <el-icon><Setting /></el-icon>
             <span>设置</span>
           </el-dropdown-item>

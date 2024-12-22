@@ -61,19 +61,6 @@ const formItems: IFormItem[] = [
       }
     ]
   },
-
-  {
-    field: "dateTime",
-    defaultValue: [],
-    type: "datepicker",
-    label: "创建时间",
-    otherOptions: {
-      "value-format": "YYYY-MM-DD",
-      type: "daterange",
-      startPlaceholder: "请选择开始时间",
-      endPlaceholder: "请选择结束时间"
-    }
-  },
   {
     field: "realname",
     defaultValue: "",
@@ -87,6 +74,18 @@ const formItems: IFormItem[] = [
     type: "input",
     label: "手机号",
     placeholder: "请输入手机号码"
+  },
+  {
+    field: "dateTime",
+    defaultValue: [],
+    type: "datepicker",
+    label: "创建时间",
+    otherOptions: {
+      "value-format": "YYYY-MM-DD",
+      type: "daterange",
+      startPlaceholder: "请选择开始时间",
+      endPlaceholder: "请选择结束时间"
+    }
   }
 ];
 
