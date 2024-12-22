@@ -35,7 +35,7 @@ const propList: IProp[] = [
     label: "创建时间"
   },
   {
-    prop: "createTime",
+    prop: "updateTime",
     minWidth: "175",
     label: "更新时间"
   },

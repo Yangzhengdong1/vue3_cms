@@ -1,25 +1,30 @@
 import { IProp } from "@/components/v-table/index";
 import { IContentConfig } from "@/components/page-content";
 
+interface IRoleLeevelMap {
+  "Super Administrator": "danger"; // 超管
+  Administrator: "warning"; // 管理员
+  "Advanced User": "primary"; // 高级用户
+  "Regular User": "success"; // 普通用户
+  Guest: "info"; // 游客
+}
+
 const propList: IProp[] = [
   {
     prop: "name",
     minWidth: "120",
-    label: "菜单名称",
+    label: "部门名称",
     otherAttr: {
       showOverflowTooltip: true
     }
   },
   {
-    prop: "icon",
+    prop: "parentName",
     minWidth: "120",
-    label: "菜单图标",
-    slotName: "icon"
-  },
-  {
-    prop: "url",
-    minWidth: "200",
-    label: "菜单url"
+    label: "上级部门",
+    otherAttr: {
+      showOverflowTooltip: true
+    }
   },
   {
     prop: "createTime",
@@ -41,18 +46,24 @@ const propList: IProp[] = [
 
 const tableProps = {
   emptyText: "暂无数据~",
-  height: "420px",
-  rowKey: "wid",
-  treeProps: { children: "childrens" }
+  height: "420px"
 };
 
 const otherComponentProps = {
-  isFooter: false,
-  title: "菜单列表"
+  expandColum: true,
+  title: "用户列表"
+};
+
+export const roleLevelMap: IRoleLeevelMap = {
+  "Super Administrator": "danger",
+  Administrator: "warning",
+  "Advanced User": "primary",
+  "Regular User": "success",
+  Guest: "info"
 };
 
 export const contentConfig: IContentConfig = {
-  pageName: "menu",
+  pageName: "department",
   propList,
   tableProps,
   otherComponentProps

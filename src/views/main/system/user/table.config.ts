@@ -64,14 +64,14 @@ const otherComponentProps = {
   title: "用户列表"
 };
 
-interface IRoleLeevelMap {
+interface IRoleLevelMap {
   "Super Administrator": "danger"; // 超管
   Administrator: "warning"; // 管理员
   "Advanced User": "primary"; // 高级用户
   "Regular User": "success"; // 普通用户
   Guest: "info"; // 游客
 }
-export const roleLevelMap: IRoleLeevelMap = {
+export const roleLevelMap: IRoleLevelMap = {
   "Super Administrator": "danger",
   Administrator: "warning",
   "Advanced User": "primary",

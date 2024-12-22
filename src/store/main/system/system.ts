@@ -21,7 +21,7 @@ const pageNameMap: any = {
     mutationNames: ["changeRoleList", "changeRoleTotal"]
   },
   department: {
-    fetchUrl: "/department/get-tree-list",
+    fetchUrl: "/department/get-list",
     mutationNames: ["changeDepartmentList", "changeDepartmentTotal"]
   },
   menu: {
@@ -46,7 +46,9 @@ const systemModule: Module<ISystemState, IRootState> = {
       menuList: [],
       menuTotalCount: 0,
       goodsList: [],
-      goodsTotalCount: 0
+      goodsTotalCount: 0,
+      departmentList: [],
+      departmentTotalCount: 0
     };
   },
 
@@ -68,6 +70,12 @@ const systemModule: Module<ISystemState, IRootState> = {
     },
     changeRoleTotal(state, total) {
       state.roleTotalCount = total;
+    },
+    changeDepartmentList(state, list: IUserMenusResult) {
+      state.departmentList = list;
+    },
+    changeDepartmentTotal(state, total) {
+      state.departmentTotalCount = total;
     },
     changeMenuList(state, list: IUserMenusResult) {
       state.menuList = list;

@@ -25,6 +25,8 @@ export interface ISystemState {
   goodsTotalCount: number | string;
   menuList: any[];
   menuTotalCount: number | string;
+  departmentList: any[];
+  departmentTotalCount: number | string;
 }
 
 export interface IRootWithModule {
