@@ -19,18 +19,22 @@
   import { ref, computed, defineEmits } from "vue";
   import { useRoute } from "vue-router";
   import { useStore } from "vuex";
+  import localCache from "@/utils/local-cache";
+  import { pathMapBreadcrumbs } from "@/utils/map-menus";
 
   import UserInfo from "./user-info.vue";
   import NavBreadcrumb from "./nav-breadcrumb.vue";
 
-  import { pathMapBreadcrumbs } from "@/utils/map-menus";
-
   const emits = defineEmits(["changeFold"]);
 
   const isFold = ref(false);
+  isFold.value = localCache.getCache("foold", "local") ?? false;
+  emits("changeFold", isFold.value);
+
   const iconName = computed(() => (isFold.value ? "Fold" : "Expand"));
   const handleFold = () => {
     isFold.value = !isFold.value;
+    localCache.setCache("foold", isFold.value, "local");
     emits("changeFold", isFold.value);
   };
 

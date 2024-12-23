@@ -1,7 +1,12 @@
 import type { Module } from "vuex";
 
 import type { IRootState, ISystemState } from "@/store/types";
-import type { IUserList, IGoodsList, IRoleList } from "@/service/types/system";
+import type {
+  IUserList,
+  IGoodsList,
+  IRoleList,
+  IStoryList
+} from "@/service/types/system";
 import {
   createPageData,
   getPageList,
@@ -35,6 +40,10 @@ const pageNameMap: any = {
   goods: {
     fetchUrl: "/goods/get-list",
     mutationNames: ["changeGoodsList", "changeGoodsTotal"]
+  },
+  story: {
+    fetchUrl: "/story/get-list",
+    mutationNames: ["changeStoryList", "changeStoryTotal"]
   }
 };
 
@@ -54,7 +63,9 @@ const systemModule: Module<ISystemState, IRootState> = {
       departmentList: [],
       departmentTotalCount: 0,
       permissionList: [],
-      permissionTotalCount: 0
+      permissionTotalCount: 0,
+      storyList: [],
+      storyTotalCount: 0
     };
   },
 
@@ -100,6 +111,12 @@ const systemModule: Module<ISystemState, IRootState> = {
     },
     changeGoodsTotal(state, total) {
       state.goodsTotalCount = total;
+    },
+    changeStoryList(state, list: IStoryList) {
+      state.storyList = list;
+    },
+    changeStoryTotal(state, total) {
+      state.storyTotalCount = total;
     }
   },
 

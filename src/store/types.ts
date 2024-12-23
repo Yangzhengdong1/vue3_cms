@@ -1,3 +1,5 @@
+import { IStoryList } from "@/service/types/system";
+
 export interface IRootState {
   name: string;
   integrityRole: any[];
@@ -29,6 +31,8 @@ export interface ISystemState {
   departmentTotalCount: number | string;
   permissionList: any[];
   permissionTotalCount: number | string;
+  storyList: IStoryList;
+  storyTotalCount: number | string;
 }
 
 export interface IRootWithModule {

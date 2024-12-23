@@ -33,6 +33,15 @@ export interface IRoleItem {
   updateTime: string;
 }
 
+interface IStoryItem {
+  wid: string;
+  content: string;
+  utterer: string;
+  createTime: string;
+  timeAgo: string;
+}
+
 export type IUserList = IUserItem[];
 export type IGoodsList = IGoodsItem[];
 export type IRoleList = IRoleItem[];
+export type IStoryList = IStoryItem[];

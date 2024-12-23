@@ -83,6 +83,7 @@ const loginModule: Module<ILoginState, IRootState> = {
       ctx.commit("changeToken", token);
       localCache.setCache("token", token, "local");
       localCache.setCache("userId", id, "local");
+      const lastPath = localCache.getCache("lastPath", "local") ?? "/";
 
       // 获取用户信息
       ctx.dispatch("getUserInfoAction", id);
@@ -97,7 +98,7 @@ const loginModule: Module<ILoginState, IRootState> = {
       ctx.dispatch("getAllDicTableAction", null, { root: true });
 
       // 将当前路由缓存，跳转时取出来
-      router.replace("/main");
+      router.replace(lastPath);
 
       // 设置当前菜单
       ctx.dispatch("getCurrentUserMenu", "/main/welcome");
