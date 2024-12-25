@@ -39,6 +39,7 @@ interface IStoryItem {
   utterer: string;
   createTime: string;
   timeAgo: string;
+  height?: number | string;
 }
 
 export type IUserList = IUserItem[];

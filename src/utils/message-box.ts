@@ -32,6 +32,6 @@ export const confirmDialog = (options = defaultOptions) => {
     showClose: false, // 是否显示关闭按钮
     type,
     customClass: "my-custom-confirm", // 自定义样式类名
-    dangerouslyUseHTMLString: false // 内容是否支持 HTML
+    dangerouslyUseHTMLString: true // 内容是否支持 HTML
   });
 };

@@ -104,8 +104,9 @@ const formRules = {
       trigger: "blur"
     },
     {
-      pattern: /^[\w\u4e00-\u9fa5]{2,10}$/,
-      message: "用户名需为2~10位字母、数字或汉字~",
+      pattern:
+        /^(?=.*[\w\u4e00-\u9fa5\uac00-\ud7af])[\w\u4e00-\u9fa5\uac00-\ud7af @]{2,10}$/,
+      message: "用户名需为2-10位，可包含字母、数字、汉字、空格、下划线或@符号~",
       trigger: "blur"
     }
   ],

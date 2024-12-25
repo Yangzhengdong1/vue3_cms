@@ -5,6 +5,7 @@ module.exports = defineConfig({
   transpileDependencies: true,
   // 配置方式二：和 webpack 属性完全一致，最后会合并
   configureWebpack: {
+    devtool: "source-map",
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "src"),
