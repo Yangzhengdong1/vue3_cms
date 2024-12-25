@@ -2,7 +2,7 @@ import { ref, Ref } from "vue";
 import PageModal from "@/components/page-modal";
 
 type UserPageModal = [Ref<any, any>, any, () => void, (info: any) => void];
-type CallbackFn = () => void;
+type CallbackFn = (item?: any) => void;
 
 export const usePageModal = (
   newCb?: CallbackFn,
@@ -24,7 +24,7 @@ export const usePageModal = (
     if (pageModalRef.value) {
       pageModalRef.value.dialogVisible = true;
     }
-    editCb && editCb();
+    editCb && editCb(info);
   };
 
   return [pageModalRef, defaultInfo, handleAddData, handleEditData];

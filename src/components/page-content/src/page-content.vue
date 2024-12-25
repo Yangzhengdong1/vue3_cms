@@ -206,7 +206,7 @@
   const handleDelete = async (item: any) => {
     const message =
       pageName === "department"
-        ? "此操作将永久删除该部门，<span style='color: var(--el-color-danger);'>同时删除部门内的所有用户和角色。</span>是否继续？"
+        ? "此操作将永久删除该部门，<span style='color: var(--el-color-danger);'>同时删除部门内的所有角色。</span>是否继续？"
         : "此操作将永久删除该数据，是否继续？";
     try {
       const options = {

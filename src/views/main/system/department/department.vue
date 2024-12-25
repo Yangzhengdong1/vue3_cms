@@ -1,11 +1,16 @@
 <template>
   <div class="department">
     <page-search
-      page-name="department"
+      :page-name="pageName"
       :search-form-config="searchFormConfigRef"
       @serch-confirm="handleQuery"
     />
-    <page-content ref="pageContentRef" :content-config="contentConfig">
+    <page-content
+      ref="pageContentRef"
+      :content-config="contentConfig"
+      @add-new="handleAddData"
+      @edit-info="handleEditData"
+    >
       <template #expand="scope">
         <div class="department-expand-box">
           <!-- 角色 -->
@@ -53,19 +58,48 @@
         </div>
       </template>
     </page-content>
+
+    <page-modal
+      ref="pageModalRef"
+      :page-name="pageName"
+      :modal-form-config="modalFormConfigRef"
+      :default-info="defaultInfo"
+      :other-info="otherInfo"
+      :dialog-title="defaultInfo.wid ? '编辑部门' : '新增部门'"
+    >
+      <div class="menu-tree">
+        <span>菜单权限</span>
+        <el-tree
+          ref="treeRef"
+          :data="menus"
+          show-checkbox
+          default-expand-all
+          node-key="wid"
+          :props="{ label: 'name', children: 'childrens' }"
+          @check="handleMenuCheck"
+        />
+      </div>
+    </page-modal>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { computed } from "vue";
+  import { computed, nextTick, ref } from "vue";
   import { useStore } from "@/store";
 
+  import { ElTree } from "element-plus";
   import PageContent from "@/components/page-content";
   import PageSearch from "@/components/page-search";
+  import PageModal from "@/components/page-modal";
+
   import { searchFormConfig } from "./search.config";
   import { contentConfig, roleLevelMap } from "./table.config";
+  import { modalFormConfig } from "./modal.config";
 
   import { usePageContent } from "@/hooks/use-page-content";
+  import { usePageModal } from "@/hooks/use-page-modal";
+
+  const pageName = "department";
 
   const [pageContentRef, handleQuery] = usePageContent();
 
@@ -81,6 +115,42 @@
 
     return searchFormConfig;
   });
+
+  const modalFormConfigRef = computed(() => {
+    const departmentItem = modalFormConfig.formItems.find(
+      (item) => item.field === "parentId"
+    );
+    departmentItem!.options = store.state.integrityDepartment;
+    return modalFormConfig;
+  });
+
+  // 部门树相关逻辑
+  const otherInfo = ref({});
+  const menus = computed(() => store.state.integrityMenu);
+  const treeRef = ref<InstanceType<typeof ElTree>>();
+  const handleMenuCheck = (data: any, checData: any) => {
+    const checkedNodes = [
+      ...checData.checkedNodes,
+      ...checData.halfCheckedNodes
+    ];
+    const menus = checkedNodes.map((item: any) => ({
+      wid: item.wid,
+      name: item.name
+    }));
+    otherInfo.value = { menus };
+  };
+  const editCallback = (item: any) => {
+    // 设置树回显
+    const checkedKeys = item.menus
+      .filter((item: any) => item.parentId !== null)
+      .map((item: any) => item.wid);
+    otherInfo.value = { menus: item.menus };
+    nextTick(() => {
+      treeRef.value?.setCheckedKeys(checkedKeys);
+    });
+  };
+  const [pageModalRef, defaultInfo, handleAddData, handleEditData] =
+    usePageModal(undefined, editCallback);
 </script>
 
 <style scoped lang="less">
@@ -115,6 +185,15 @@
       .el-tag {
         margin-right: 10px;
       }
+    }
+  }
+  .menu-tree {
+    display: flex;
+    padding-left: 40px;
+    .el-tree {
+      flex: 1;
+      max-height: 280px;
+      overflow: auto;
     }
   }
 </style>

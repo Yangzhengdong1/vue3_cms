@@ -17,6 +17,7 @@
           v-model="formData"
           v-bind="modalFormConfig"
         ></v-form>
+        <slot></slot>
       </div>
 
       <template #footer>
@@ -32,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, defineExpose, defineProps, watch } from "vue";
+  import { ref, defineExpose, defineProps, watch, withDefaults } from "vue";
 
   import VForm from "@/components/v-form";
   import { useStore } from "@/store";
@@ -43,8 +44,11 @@
     dialogTitle: string;
     defaultInfo: any;
     pageName: string;
+    otherInfo?: any;
   }
-  const props = defineProps<IProps>();
+  const props = withDefaults(defineProps<IProps>(), {
+    otherInfo: () => ({})
+  });
   const formData = ref<any>({});
 
   watch(
@@ -77,7 +81,7 @@
 
       const result = await store.dispatch(actionName, {
         pageName: props.pageName,
-        params: { ...formData.value, ...(wid && { wid }) }
+        params: { ...formData.value, ...(wid && { wid }), ...props.otherInfo }
       });
       dialogVisible.value = result !== "success";
     });
