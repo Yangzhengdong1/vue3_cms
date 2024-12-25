@@ -19,31 +19,38 @@ import crypto from "@/utils/crypto";
 const pageNameMap: any = {
   user: {
     fetchUrl: "/user/get-list",
-    mutationNames: ["changeUserList", "changeUserTotal"]
+    mutationNames: ["changeUserList", "changeUserTotal"],
+    reload: true
   },
   role: {
     fetchUrl: "/role/get-list",
-    mutationNames: ["changeRoleList", "changeRoleTotal"]
+    mutationNames: ["changeRoleList", "changeRoleTotal"],
+    reload: true
   },
   department: {
     fetchUrl: "/department/get-list",
-    mutationNames: ["changeDepartmentList", "changeDepartmentTotal"]
+    mutationNames: ["changeDepartmentList", "changeDepartmentTotal"],
+    reload: true
   },
   menu: {
     fetchUrl: "/menu/get-menu-tree",
-    mutationNames: ["changeMenuList", "changeMenuTotal"]
+    mutationNames: ["changeMenuList", "changeMenuTotal"],
+    reload: true
   },
   permission: {
     fetchUrl: "/permission/get-list",
-    mutationNames: ["changePermissionList", "changePermissionTotal"]
+    mutationNames: ["changePermissionList", "changePermissionTotal"],
+    reload: true
   },
   goods: {
     fetchUrl: "/goods/get-list",
-    mutationNames: ["changeGoodsList", "changeGoodsTotal"]
+    mutationNames: ["changeGoodsList", "changeGoodsTotal"],
+    reload: false
   },
   story: {
     fetchUrl: "/story/get-list",
-    mutationNames: ["changeStoryList", "changeStoryTotal"]
+    mutationNames: ["changeStoryList", "changeStoryTotal"],
+    reload: false
   }
 };
 
@@ -160,6 +167,10 @@ const systemModule: Module<ISystemState, IRootState> = {
             pageName,
             queryInfo: queryInfo ? queryInfo : ctx.state.queryInfo
           });
+          // pageNameMap[pageName].reload &&
+          //   setTimeout(() => {
+          //     location.reload();
+          //   }, 3000);
         } else {
           message.error(result.message);
         }
@@ -210,6 +221,11 @@ const systemModule: Module<ISystemState, IRootState> = {
               pageName,
               queryInfo: { ...ctx.state.queryInfo, pageSize: 10, pageNum: 1 }
             });
+            // 刷新页面
+            // pageNameMap[pageName].reload &&
+            //   setTimeout(() => {
+            //     location.reload();
+            //   }, 3000);
             resolve("success");
           } else {
             message.error(result.message);
