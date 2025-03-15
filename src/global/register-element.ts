@@ -25,7 +25,8 @@ import {
   ElCascader,
   ElDialog,
   ElUpload,
-  ElTree
+  ElTree,
+  ElCard
 } from "element-plus";
 import {
   Search,
@@ -106,7 +107,8 @@ const components = [
   ElCascader,
   ElDialog,
   ElUpload,
-  ElTree
+  ElTree,
+  ElCard
 ];
 const concatComponents = [...icons, ...components];
 

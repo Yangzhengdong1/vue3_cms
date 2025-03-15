@@ -130,9 +130,14 @@ const systemModule: Module<ISystemState, IRootState> = {
   actions: {
     async getPageListAction(
       ctx,
-      payload: { pageName: string; queryInfo: any }
+      payload: {
+        pageName: string;
+        queryInfo: any;
+        success?: (result: any) => any;
+        fail?: (error: any) => any;
+      }
     ) {
-      const { pageName, queryInfo } = payload;
+      const { pageName, queryInfo, success, fail } = payload;
       try {
         const result = await getPageList(
           pageNameMap[pageName].fetchUrl,
@@ -146,8 +151,10 @@ const systemModule: Module<ISystemState, IRootState> = {
           ctx.commit(pageNameMap[pageName].mutationNames[0], []);
           ctx.commit(pageNameMap[pageName].mutationNames[1], 0);
         }
+        success && success(result);
         // console.log(result);
       } catch (error) {
+        fail && fail(error);
         message.error("请求列表出错！");
         console.log("请求列表出错！", error);
       }
