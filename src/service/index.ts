@@ -29,7 +29,7 @@ export default new Request({
         localCache.removeCache("userInfo", "local");
         localCache.removeCache("userMenus", "local");
         localCache.removeCache("userId", "local");
-        router.replace("/login");
+        router.replace({ path: "/login" });
       }
       throw err;
     }

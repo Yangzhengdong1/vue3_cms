@@ -98,7 +98,7 @@ const loginModule: Module<ILoginState, IRootState> = {
       ctx.dispatch("getAllDicTableAction", null, { root: true });
 
       // 将当前路由缓存，跳转时取出来
-      router.replace(lastPath);
+      router.replace({ path: lastPath });
 
       // 设置当前菜单
       ctx.dispatch("getCurrentUserMenu", "/main/welcome");

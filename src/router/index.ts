@@ -9,6 +9,8 @@ const NotFound = () => import("@/views/not-found/not-found.vue");
 
 import { firstMenu } from "@/utils/map-menus";
 import localCache from "@/utils/local-cache";
+import useEnv from "@/hooks/use-env";
+const [isProd] = useEnv();
 
 const routes: RouteRecordRaw[] = [
   {
@@ -41,7 +43,7 @@ const routes: RouteRecordRaw[] = [
 
 const router = createRouter({
   routes,
-  history: createWebHistory()
+  history: createWebHistory(isProd() ? "/mall-cms/" : "")
 });
 
 router.beforeEach((to, from) => {

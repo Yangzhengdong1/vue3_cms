@@ -15,7 +15,7 @@
             <el-icon><Setting /></el-icon>
             <span>设置</span>
           </el-dropdown-item>
-          <el-dropdown-item @click="$router.push('/about')">
+          <el-dropdown-item @click="$router.push({ path: '/about' })">
             <el-icon><Edit /></el-icon>
             <span>个人资料</span>
           </el-dropdown-item>
@@ -48,7 +48,7 @@
       { cacheKey: "userInfo", cacheType: "local" },
       { cacheKey: "userId", cacheType: "local" }
     ]);
-    router.push("/login");
+    router.push({ path: "login" });
   };
 </script>
 

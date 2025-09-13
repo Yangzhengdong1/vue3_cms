@@ -14,7 +14,7 @@
   import router from "@/router";
   import localCache from "@/utils/local-cache";
   const lastPath = localCache.getCache("lastPath", "local");
-  const handleBack = () => router.replace(lastPath);
+  const handleBack = () => router.replace({ path: lastPath });
 </script>
 
 <style scoped lang="less">

@@ -2,6 +2,7 @@ const path = require("path");
 const { defineConfig } = require("@vue/cli-service");
 
 module.exports = defineConfig({
+  publicPath: process.env.NODE_ENV === "production" ? "/mall-cms/" : "/",
   transpileDependencies: true,
   // 配置方式二：和 webpack 属性完全一致，最后会合并
   configureWebpack: {
@@ -20,10 +21,10 @@ module.exports = defineConfig({
         overlay: false
       },
       proxy: {
-        "/httpProxy": {
+        "/mall-cms/httpProxy/": {
           target: "http://192.168.31.58:8000",
           pathRewrite: {
-            "^/httpProxy": ""
+            "^/mall-cms/httpProxy/": ""
           },
           changeOrigin: true
         }

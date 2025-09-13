@@ -94,10 +94,10 @@
   const appName = computed(() => process.env.VUE_APP_NAME);
 
   const handleMenuItem = (item: IMenusChildren) =>
-    router.push(item.url ?? "not-found");
+    router.push({ path: item.url ?? "not-found" });
 
   const handleLogoClick = () => {
-    router.push("/main/welcome");
+    router.push({ path: "/main/welcome" });
     activePath.value = "/main/welcome";
   };
 </script>
