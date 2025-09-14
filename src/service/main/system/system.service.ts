@@ -18,7 +18,7 @@ export const getDictTable = (tableName: string) => {
 };
 
 export const uploadImage = (formData: any) => {
-  const url = "/upload/upload-img";
+  const url = "/upload/upload-img-v2";
   return axios.post<IDataType<any>>({
     url,
     data: formData,

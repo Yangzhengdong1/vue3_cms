@@ -13,7 +13,7 @@
       <p class="welcome-message">
         Manage your system with ease and efficiency.
       </p>
-      <a href="/dashboard" class="enter-btn">Go to Dashboard</a>
+      <!-- <a href="/dashboard" class="enter-btn">Go to Dashboard</a> -->
     </div>
   </div>
 </template>

@@ -12,6 +12,8 @@ import {
   getUserPermsService
 } from "@/service/login/login.service";
 
+import { DEFAULT_AVATAR_URL } from "@/assets/js/constant";
+
 import type { IRootState, ILoginState } from "../types";
 import type {
   IAccount,
@@ -110,6 +112,7 @@ const loginModule: Module<ILoginState, IRootState> = {
         const userInfoResult = await getUserInfoService(id);
         if (userInfoResult && userInfoResult.code === 0) {
           const { data: userInfo } = userInfoResult;
+          userInfo.avatarUrl = userInfo.avatarUrl || DEFAULT_AVATAR_URL;
           ctx.commit("changeUserInfo", userInfo);
         }
       } catch (error) {

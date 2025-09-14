@@ -26,7 +26,8 @@ import {
   ElDialog,
   ElUpload,
   ElTree,
-  ElCard
+  ElCard,
+  ElCollapse
 } from "element-plus";
 import {
   Search,
@@ -46,7 +47,12 @@ import {
   Sunny,
   Moon,
   Back,
-  Odometer
+  Odometer,
+  Minus,
+  FullScreen,
+  Close,
+  Aim,
+  Plus
 } from "@element-plus/icons-vue";
 
 const icons = [
@@ -67,7 +73,12 @@ const icons = [
   Sunny,
   Moon,
   Back,
-  Odometer
+  Odometer,
+  Minus,
+  FullScreen,
+  Close,
+  Aim,
+  Plus
 ];
 const components = [
   ElButton,
@@ -108,7 +119,9 @@ const components = [
   ElDialog,
   ElUpload,
   ElTree,
-  ElCard
+  ElCard,
+  ElCollapse,
+  ElCollapse.CollapseItem
 ];
 const concatComponents = [...icons, ...components];
 
