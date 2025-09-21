@@ -23,6 +23,7 @@ export interface IUserInfoResult {
   updateTime: string;
   avatarUrl: string;
   realname: string;
+  password?: string;
 }
 
 export interface IMenusChildren {

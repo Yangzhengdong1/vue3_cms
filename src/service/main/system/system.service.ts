@@ -25,6 +25,7 @@ export const uploadImage = (formData: any) => {
     headers: {
       "Content-Type": "multipart/form-data"
     },
+    timeout: 10000,
     onUploadProgress: (progressEvent) => {
       const percent = Math.round(
         (progressEvent.loaded / (progressEvent as any).total) * 100

@@ -3,19 +3,13 @@
     :model="formData"
     :rules="rules"
     label-width="80"
-    class="user-info-form"
+    class="user-account-form"
   >
-    <el-form-item label="真实姓名" prop="realname">
-      <el-input v-model="formData.realname" disabled></el-input>
+    <el-form-item label="昵称" prop="username">
+      <el-input v-model="formData.username"></el-input>
     </el-form-item>
-    <el-form-item label="手机号" prop="phone">
-      <el-input v-model="formData.phone" disabled></el-input>
-    </el-form-item>
-    <el-form-item label="所属部门" prop="departmentName">
-      <el-input v-model="formData.departmentName" disabled></el-input>
-    </el-form-item>
-    <el-form-item label="角色" prop="roleName">
-      <el-input v-model="formData.roleName" disabled></el-input>
+    <el-form-item label="新密码" prop="password">
+      <el-input v-model="formData.password"></el-input>
     </el-form-item>
   </el-form>
 </template>
@@ -23,7 +17,7 @@
 <script setup lang="ts">
   import { IUserInfoResult } from "@/service/types/login";
   import { FormRules } from "element-plus";
-  import { defineProps, withDefaults, ref } from "vue";
+  import { defineProps, withDefaults, ref, defineExpose } from "vue";
   const props = withDefaults(
     defineProps<{
       userInfo: Partial<IUserInfoResult>;
@@ -40,17 +34,16 @@
       type: "string",
       required: true,
       message: "用户名为必填项"
-    },
-    phone: {
-      type: "string",
-      required: true,
-      message: "手机号为必填项"
     }
   };
+
+  defineExpose({
+    formData
+  });
 </script>
 
 <style lang="less" scoped>
-  .user-info-form {
+  .user-account-form {
     padding: 12px 16px;
     background: #fff;
     /deep/ .el-input {

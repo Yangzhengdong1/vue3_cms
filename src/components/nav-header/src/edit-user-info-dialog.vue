@@ -14,8 +14,13 @@
           <el-upload
             class="avatar-uploader"
             action="#"
+            ref="uploadRef"
             :show-file-list="false"
             :auto-upload="false"
+            :before-upload="beforeUpload"
+            :on-change="handleChange"
+            :http-request="uploadFile"
+            :accept="accept"
           >
             <div class="avatar-wrapper">
               <img
@@ -50,8 +55,13 @@
                     <EditInfoForm :userInfo="userInfoForm" />
                   </div>
                 </el-collapse-item>
-                <el-collapse-item title="账号安全" name="2" disabled>
-                  <div class="info-content"></div>
+                <el-collapse-item title="账号安全" name="2">
+                  <div class="info-content">
+                    <EditAccountForm
+                      :userInfo="userInfoForm"
+                      ref="editAccountFormRef"
+                    />
+                  </div>
                 </el-collapse-item>
                 <el-collapse-item title="偏好设置" name="3" disabled>
                   <div class="info-content"></div>
@@ -72,10 +82,14 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, defineProps, defineEmits, withDefaults } from "vue";
+  import { ref, defineProps, defineEmits, withDefaults, computed } from "vue";
+  import { UploadRawFile, UploadRequestOptions, ElUpload } from "element-plus";
   import { IUserInfoResult } from "@/service/types/login";
   import EditInfoForm from "./edit-info-form.vue";
+  import EditAccountForm from "./edit-account-form.vue";
   import message from "@/utils/message";
+  import { uploadImage } from "@/service/main/system/system.service";
+  import { useStore } from "@/store";
 
   interface IFormData {
     userInfo: Partial<IUserInfoResult>;
@@ -94,6 +108,52 @@
     }
   );
   const emits = defineEmits(["update:visible"]);
+  const store = useStore();
+
+  const imageTypes = ["jpg", "png", "jpeg", "svg"];
+  const accept = imageTypes.map((type: string) => `.${type}`).join(",");
+  const userPermissions = computed(() => store.state.login.userPermissions);
+
+  // 文件上传
+  const uploadRef = ref<InstanceType<typeof ElUpload>>();
+  const beforeUpload = (rawFile: UploadRawFile) => {
+    // 判断是否有上传权限
+    if (!userPermissions.value.includes("upload_img")) {
+      message.warning("暂无上传权限");
+      return false;
+    }
+
+    // 限制上传类型
+    if (!imageTypes.includes(rawFile.type.split("/").pop() as string)) {
+      message.warning(`仅允许上传${accept}类型文件`);
+      return false;
+    }
+
+    // 限制上传大小
+    if (rawFile.size > 1000) {
+      message.warning("仅允许上传小于 1M 的图片");
+      return false;
+    }
+  };
+
+  const handleChange = () => uploadRef.value?.submit();
+
+  const uploadFile = async (options: UploadRequestOptions) => {
+    const file: UploadRawFile = options.file;
+    const onSuccess = options.onSuccess;
+    const onError = options.onError;
+    try {
+      const formData = new FormData();
+      formData.append("avatar", file);
+      const { code, data, message: msg } = await uploadImage(formData);
+      if (code !== 0) return message.error(msg);
+      userInfoForm.value.avatarUrl = data.url;
+      onSuccess(data);
+    } catch (error: any) {
+      onError(error);
+    }
+  };
+
   const handleClose = () => {
     emits("update:visible", false);
   };
@@ -102,8 +162,17 @@
 
   const userInfoForm = ref<Partial<IUserInfoResult>>(props.formData.userInfo);
 
-  const handleConfirm = () => {
+  const editAccountFormRef = ref<InstanceType<typeof EditAccountForm>>();
+  const handleConfirm = async () => {
     message.warning("个人资料修改功能正在努力开发中(ง•_•)ง~");
+    const { password, username } = editAccountFormRef.value!.formData;
+    const { avatarUrl } = userInfoForm.value;
+    const params = {
+      password,
+      username,
+      avatarUrl
+    };
+    console.log(params, "--------------");
   };
 </script>
 
